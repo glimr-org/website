@@ -1,0 +1,31 @@
+---
+import gleam/string
+
+props(
+  language: String, 
+  filename: String, 
+  borderless: Bool
+)
+---
+
+<div
+  :class="[
+    'overflow-hidden',
+    case borderless {
+      True -> ''
+      _ -> 'rounded-xl border border-slate-200'
+    },
+  ]"
+>
+  <div
+    l-if="!string.is_empty(filename)"
+    class="flex bg-slate-100 border-b border-slate-200"
+  >
+    <span class="bg-slate-50 px-4 py-2 text-[12.5px] font-mono font-light text-[#4c4f69]">
+      {{ filename }}
+    </span>
+  </div>
+  <pre
+    class="bg-slate-50 text-[#4c4f69] p-5 text-[13.5px] leading-relaxed overflow-x-auto font-mono font-light min-h-[340px]"
+  ><code :data-lang="language"><slot /></code></pre>
+</div>

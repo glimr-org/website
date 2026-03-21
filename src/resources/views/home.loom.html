@@ -1,0 +1,1096 @@
+---
+import glimr/session/session
+import glimr/http/context
+import app/app.{type App}
+import glimr/utils/unix_timestamp
+
+props(ctx: context.Context(App))
+---
+
+<x-layouts:app>
+  <slot name="meta_title">
+    Glimr - Build scalable web apps that LLM's can understand
+  </slot>
+
+  <!-- Nav -->
+  <nav>
+    <x-container class="pt-5 pb-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <x-logo width="26" class="fill-[#2B2E49]" />
+        <span class="text-[17px] font-semibold text-[#2B2E49]">Glimr</span>
+      </a>
+      <div
+        class="flex items-center gap-6 text-[14.5px] font-medium text-[#2C2E49] nav"
+      >
+        <a
+          href="https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-"
+          target="_blank"
+          class="hover:text-mist-700 transition-colors"
+        >
+          Docs
+        </a>
+        <a
+          href="https://github.com/glimr-org/glimr"
+          target="_blank"
+          class="hover:text-mist-700 transition-colors"
+        >
+          Github
+        </a>
+        <a
+          href="https://hex.pm/packages/glimr"
+          target="_blank"
+          class="hover:text-mist-700 transition-colors"
+        >
+          Hex
+        </a>
+      </div>
+    </x-container>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <x-container class="pt-[60px] pb-[30px] flex items-start">
+      <!-- Left content -->
+      <div class="flex-1 max-w-sm">
+        <span
+          class="inline-block text-[13px] font-semibold text-[#FF43A1] mb-[20px] bg-[#FFEEF7] rounded-[9px] px-2.5 pb-[1px]"
+        >
+          v1.0.0
+        </span>
+
+        <h1 class="text-[33px] leading-[1.07] font-semibold mb-[30px]">
+          Build scalable web apps that LLM's can understand and you can trust.
+        </h1>
+
+        <p class="text-[16px] leading-snug mb-[40px] max-w-sm">
+          Gleam's type safety and functional core, plus Glimr's opinonated
+          design mean fewer bugs, confident refactoring, and AI that actually
+          writes correct code.
+        </p>
+
+        <div class="flex gap-3 items-center">
+          <x-button
+            href="https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-"
+            target="_blank"
+          >
+            Explore Docs
+          </x-button>
+
+          <x-button href="#newsletter" variant="secondary" l-no-nav>
+            Join Newsletter
+          </x-button>
+        </div>
+      </div>
+
+      <!-- Right illustration -->
+      <div class="flex-1 hidden lg:flex justify-center items-center">
+        <img src="/static/images/blocks.jpg" />
+      </div>
+    </x-container>
+  </section>
+
+  <!-- Code Showcase -->
+  <section>
+    <x-container class="pt-[40px] pb-[70px]">
+      <div class="text-center mb-14">
+        <span
+          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-[8px] block"
+          >Beautiful Code</span
+        >
+
+        <h2
+          class="text-[30px] font-semibold mb-4 leading-[1.07] max-w-2xl mx-auto"
+        >
+          A delightful coding experience.
+        </h2>
+        <p
+          class="text-[16px] leading-snug text-[#747687] max-w-[600px] mx-auto"
+        >
+          Clean, expressive, and intentional by default. Glimr helps you write
+          code you're happy to come back to whether you're a team of 1 or 100.
+        </p>
+      </div>
+      <div x-data="{ tab: 'routing' }" class="flex gap-8 items-start">
+        <!-- Left: Tabs + Code -->
+        <div class="flex-1 min-w-0">
+          <!-- Tabs -->
+          <div class="flex gap-1 mb-3">
+            <button
+              x-on:click="tab = 'routing'"
+              x-bind:class="tab === 'routing' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Routing
+            </button>
+            <button
+              x-on:click="tab = 'middleware'"
+              x-bind:class="tab === 'middleware' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Middleware
+            </button>
+            <button
+              x-on:click="tab = 'liveviews'"
+              x-bind:class="tab === 'liveviews' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Live Views
+            </button>
+            <button
+              x-on:click="tab = 'validation'"
+              x-bind:class="tab === 'validation' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Validation
+            </button>
+            <button
+              x-on:click="tab = 'migrations'"
+              x-bind:class="tab === 'migrations' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Migrations
+            </button>
+            <button
+              x-on:click="tab = 'queries'"
+              x-bind:class="tab === 'queries' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Queries
+            </button>
+            <button
+              x-on:click="tab = 'auth'"
+              x-bind:class="tab === 'auth' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Auth
+            </button>
+            <button
+              x-on:click="tab = 'cache'"
+              x-bind:class="tab === 'cache' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'"
+              class="px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer"
+            >
+              Cache
+            </button>
+          </div>
+
+          <!-- Code block (fixed height) -->
+          <div>
+            <!-- Routing: single file -->
+            <!-- prettier-ignore -->
+            <div x-show="tab === 'routing'">
+<x-code language="gleam" filename="user_controller.gleam">/// @get "/users"
+pub fn index(ctx: Context(App)) -&gt; Response {
+  let users = user.list_or_fail(ctx.app.db)
+
+  response.html(user_index.render(users: users), 200)
+}
+
+/// @get "/users/:user_id"
+pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
+  let user = user.find_or_fail(ctx.app.db, user_id)
+
+  response.html(user_show.render(user: user), 200)
+}</x-code>
+            </div>
+
+            <!-- Middleware: multi-file -->
+            <div x-show="tab === 'middleware'" x-data="{ file: 'middleware' }">
+              <div class="rounded-xl border border-slate-200 overflow-hidden">
+                <div class="flex bg-slate-100 border-b border-slate-200">
+                  <button
+                    x-on:click="file = 'middleware'"
+                    x-bind:class="file === 'middleware' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    logger.gleam
+                  </button>
+                  <button
+                    x-on:click="file = 'controller'"
+                    x-bind:class="file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    user_controller.gleam
+                  </button>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'middleware'">
+<x-code language="gleam" borderless>import app/app.{type App}
+import glimr/http/context.{type Context}
+import glimr/http/http.{type Response}
+import glimr/http/kernel.{type Next}
+
+pub fn run(ctx: Context(App), next: Next(App)) -&gt; Response {
+  io.println("Request: " &lt;&gt; ctx.req.path)
+
+  // Pass context to next middleware/handler
+  next(ctx)
+}</x-code>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'controller'">
+<x-code language="gleam" borderless>import app/http/middleware/logger
+import glimr/http/middleware
+
+/// @get "/users"
+pub fn index(ctx: Context(App)) -&gt; Response {
+  use ctx &lt;- middleware.apply([logger.run], ctx)
+
+  let users = user.list_or_fail(ctx.app.db)
+  response.html(user_index.render(users: users), 200)
+}</x-code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Templates: multi-file -->
+            <div x-show="tab === 'liveviews'" x-data="{ file: 'template' }">
+              <div class="rounded-xl border border-slate-200 overflow-hidden">
+                <div class="flex bg-slate-100 border-b border-slate-200">
+                  <button
+                    x-on:click="file = 'template'"
+                    x-bind:class="file === 'template' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    counter.loom.html
+                  </button>
+                  <button
+                    x-on:click="file = 'controller'"
+                    x-bind:class="file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    counter_controller.gleam
+                  </button>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'template'">
+<x-code language="html" borderless>---
+props(count: Int)
+---
+
+&lt;div class="text-center"&gt;
+  &lt;p class="text-2xl mb-4"&gt;Count: \{{ count }}&lt;/p&gt;
+
+  &lt;button l-on:click="count = count - 1"&gt;-&lt;/button&gt;
+  &lt;button l-on:click="count = count + 1"&gt;+&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!-- Two-way binding --&gt;
+&lt;input l-model="name" /&gt;
+&lt;p&gt;Hello, \{{ name }}!&lt;/p&gt;</x-code>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'controller'">
+<x-code language="gleam" borderless>import compiled/loom/counter
+
+/// @get "/counter"
+pub fn show(ctx: Context(App)) -&gt; Response {
+  response.html(counter.render(count: 0), 200)
+}</x-code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Validation: multi-file -->
+            <div x-show="tab === 'validation'" x-data="{ file: 'validator' }">
+              <div class="rounded-xl border border-slate-200 overflow-hidden">
+                <div class="flex bg-slate-100 border-b border-slate-200">
+                  <button
+                    x-on:click="file = 'validator'"
+                    x-bind:class="file === 'validator' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    user_store.gleam
+                  </button>
+                  <button
+                    x-on:click="file = 'controller'"
+                    x-bind:class="file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    user_controller.gleam
+                  </button>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'validator'">
+<x-code language="gleam" borderless>/// Define the shape of the data returned after validation
+pub type Data {
+  Data(
+    name: String,
+    email: String,
+  )
+}
+
+/// Define your form's validation rules
+fn rules(_ctx: Context(App)) -&gt; List(Rule) {
+  [
+    v.for("name", [v.Required, v.MinLength(2)]),
+    v.for("email", [v.Required, v.Email, v.MaxLength(255)]),
+  ]
+}</x-code>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'controller'">
+<x-code language="gleam" borderless>/// @post "/users"
+pub fn store(ctx: Context(App)) -&gt; Response {
+  use data &lt;- user_store.validate(ctx)
+
+  let user = user.create(
+    pool: ctx.app.db, 
+    name: data.name, 
+    email: data.email
+  )
+
+  redirect.to("/users/" &lt;&gt; user.id)
+}</x-code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Migrations: multi-file -->
+            <div x-show="tab === 'migrations'" x-data="{ file: 'schema' }">
+              <div class="rounded-xl border border-slate-200 overflow-hidden">
+                <div class="flex bg-slate-100 border-b border-slate-200">
+                  <button
+                    x-on:click="file = 'schema'"
+                    x-bind:class="file === 'schema' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    user_schema.gleam
+                  </button>
+                  <button
+                    x-on:click="file = 'migration'"
+                    x-bind:class="file === 'migration' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    generated migration
+                  </button>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'schema'">
+<x-code language="gleam" borderless>pub const table_name = "users"
+
+pub fn definition() {
+  schema.table(table_name, [
+    schema.id(),
+    schema.string("email"),
+    schema.string("name") |> schema.nullable(),
+    schema.boolean("is_admin") |> schema.default_bool(False),
+    schema.unix_timestamps(),
+  ])
+  |> schema.indexes([
+    schema.unique(["email"]),
+  ])
+}</x-code>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'migration'">
+<x-code language="sql" borderless>-- Auto-generated by ./glimr db_gen
+
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL,
+  name TEXT,
+  is_admin INTEGER NOT NULL DEFAULT 0,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+CREATE UNIQUE INDEX idx_users_email
+  ON users (email);</x-code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Queries: multi-file -->
+            <div x-show="tab === 'queries'" x-data="{ file: 'find' }">
+              <div class="rounded-xl border border-slate-200 overflow-hidden">
+                <div class="flex bg-slate-100 border-b border-slate-200">
+                  <button
+                    x-on:click="file = 'find'"
+                    x-bind:class="file === 'find' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    find.sql
+                  </button>
+                  <button
+                    x-on:click="file = 'list'"
+                    x-bind:class="file === 'list' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    list_active.sql
+                  </button>
+                  <button
+                    x-on:click="file = 'controller'"
+                    x-bind:class="file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    user_controller.gleam
+                  </button>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'find'">
+<x-code language="sql" borderless>-- queries/find.sql
+SELECT *
+FROM users
+WHERE id = $1;</x-code>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'list'">
+<x-code language="sql" borderless>-- queries/list_active.sql
+SELECT *
+FROM users
+WHERE is_active = true
+ORDER BY created_at DESC;</x-code>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'controller'">
+<x-code language="gleam" borderless>/// @get "/users/:user_id"
+pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
+  let user = user.find_or_fail(ctx.app.db, user_id)
+
+  response.html(user_show.render(user: user), 200)
+}
+
+/// @get "/users/active"
+pub fn active(ctx: Context(App)) -&gt; Response {
+  let users = user.list_active_or_fail(ctx.app.db)
+
+  response.html(user_index.render(users: users), 200)
+}</x-code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Auth: multi-file -->
+            <div x-show="tab === 'auth'" x-data="{ file: 'controller' }">
+              <div class="rounded-xl border border-slate-200 overflow-hidden">
+                <div class="flex bg-slate-100 border-b border-slate-200">
+                  <button
+                    x-on:click="file = 'controller'"
+                    x-bind:class="file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    dashboard_controller.gleam
+                  </button>
+                  <button
+                    x-on:click="file = 'view'"
+                    x-bind:class="file === 'view' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'"
+                    class="px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors"
+                  >
+                    dashboard.loom.html
+                  </button>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'controller'">
+<x-code language="gleam" borderless>/// @get "/dashboard"
+pub fn show(ctx: Context(App)) -&gt; Response {
+  // Ensure only authenticated ones reach this route
+  use ctx &lt;- middleware.apply([auth_user], ctx)
+
+  // Get the authenticated user from our context
+  let assert option.Some(user) = ctx.app.user
+
+  // Pass the authenticated user to your view
+  response.html(dashboard.render(user: user), 200)
+}</x-code>
+                </div>
+                <!-- prettier-ignore -->
+                <div x-show="file === 'view'">
+<x-code language="html" borderless>---
+import database/main/models/user/gen/user.{type User}
+
+props(user: User) 
+---
+
+&lt;x-layouts:app&gt;
+  &lt;div class="max-w-2xl mx-auto py-12"&gt;
+    &lt;h1 class="text-2xl font-bold"&gt;
+      Welcome back, \{{ user.name }}
+    &lt;/h1&gt;
+
+    &lt;p class="mt-2"&gt;\{{ user.email }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/x-layouts:app&gt;</x-code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cache: single file -->
+            <!-- prettier-ignore -->
+            <div x-show="tab === 'cache'">
+<x-code language="gleam" filename="user_controller.gleam">/// @get "/users/:user_id"
+pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
+  // Fetch from cache, or query DB on miss
+  let user = {
+    use &lt;- cache.remember_json(
+      ctx.app.cache,
+      "user:" &lt;&gt; int.to_string(user_id),
+      3600,
+      user.decoder(),
+      user.encoder(),
+    )
+
+    user.find_or_fail(ctx.app.db, user_id)
+  }
+
+  response.html(user_show.render(user: user), 200)
+}</x-code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Heading + Description -->
+        <div class="w-[380px] shrink-0 pt-14">
+          <div x-show="tab === 'routing'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:rocket width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">
+              Annotation-based routing
+            </h3>
+            <p class="text-[15px] mb-3">
+              Define routes with simple annotations in your controllers. Glimr
+              compiles them into a pattern-matched router, not a runtime lookup
+              table. The result is extremely fast routing with zero overhead.
+            </p>
+            <p class="text-[15px] mb-6">
+              Apply middleware at the controller or route level. Routes
+              recompile automatically when you save, so there's no manual step
+              between writing a handler and testing it.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#defining-routes"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+
+          <div x-show="tab === 'middleware'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:layers width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">
+              Composable middleware
+            </h3>
+            <p class="text-[15px] mb-3">
+              Intercept requests before they reach your controllers. Modify
+              context, check auth, log requests, rate limit, or run any custom
+              logic.
+            </p>
+            <p class="text-[15px] mb-6">
+              Apply per-route with the
+              <span
+                class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
+                >use</span
+              >
+              syntax, or per-controller with a
+              <span
+                class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
+                >middleware()</span
+              >
+              function. Changes to context flow through to all downstream
+              handlers.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#middleware"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+
+          <div x-show="tab === 'liveviews'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:lightning_bolt width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">Reactive templates</h3>
+            <p class="text-[15px] mb-3">
+              Loom templates compile to type-safe Gleam. Inspired by Pheonix
+              LiveView, add event handlers and they become reactive over
+              WebSockets. No JavaScript required.
+            </p>
+            <p class="text-[15px] mb-6">
+              All state lives on the server. Interactions trigger a minimal diff
+              that patches only what changed. Built-in SPA navigation, two-way
+              binding, loading states, and components with slots.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#loom-template-engine"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+
+          <div x-show="tab === 'validation'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:check width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">
+              Declarative validation
+            </h3>
+            <p class="text-[15px] mb-3">
+              Define rules declaratively and get back a typed struct, not a bag
+              of strings. Validation errors are handled automatically: flashed
+              to the session for HTML routes, returned as JSON for APIs.
+            </p>
+            <p class="text-[15px] mb-6">
+              The
+              <span
+                class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
+                >use</span
+              >
+              syntax short-circuits on failure, so your controller only runs
+              when data is valid. Transform and sanitize inputs in one place
+              before they reach your business logic.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#form-validation"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+
+          <div x-show="tab === 'migrations'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:stack width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">Automatic migrations</h3>
+            <p class="text-[15px] mb-6">
+              Define your schema in Gleam with a fluent, type-safe API. Glimr
+              compares it against a stored snapshot, detects changes, and
+              generates driver-specific SQL migrations automatically. Just run
+              <span
+                class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
+                >./glimr db_gen</span
+              >
+              and you're done.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#migrations"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+
+          <div x-show="tab === 'queries'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:reader width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">SQL over ORM</h3>
+            <p class="text-[15px] mb-3">
+              Write real SQL in plain <span class="font-medium">.sql</span>
+              files. Glimr automatically generates fully typed Gleam repository
+              functions you can use directly in your controllers. No ORM magic,
+              no query builders, just write plain SQL like God intended.
+            </p>
+            <p class="text-[15px] mb-6">
+              Need multiple databases? Glimr supports multiple connections out
+              of the box. SQLite, PostgreSQL, or both. Each with its own models,
+              migrations, and generated repositories.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#queries"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+
+          <div x-show="tab === 'cache'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:timer width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">Caching</h3>
+            <p class="text-[15px] mb-3">
+              Built-in caching with file, Redis, SQLite, and PostgreSQL stores.
+              The
+              <span
+                class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
+                >remember</span
+              >
+              pattern fetches from cache or computes on miss in a single
+              expression.
+            </p>
+            <p class="text-[15px] mb-6">
+              Cache strings, JSON, or structured data with auto-generated
+              encoders and decoders. Supports TTL, increment/decrement for rate
+              limiting, and flush operations.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#cache"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+
+          <div x-show="tab === 'auth'">
+            <div
+              class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+            >
+              <x-icons:lock width="18" class="text-[#FF43A1]" />
+            </div>
+            <h3 class="text-[20px] font-semibold mb-2">Built-in auth</h3>
+            <p class="text-[15px] mb-3">
+              Run
+              <span
+                class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
+                >./glimr make_auth user</span
+              >
+              and get a complete auth stack: model, migrations, login/register
+              controllers, validators, middleware, and Loom views. All
+              generated, all type-safe.
+            </p>
+            <p class="text-[15px] mb-6">
+              Need separate auth for admins and users? Use scoped mode for fully
+              independent auth stacks with their own middleware, sessions, and
+              routes.
+            </p>
+            <x-button
+              href="https://github.com/glimr-org/glimr?tab=readme-ov-file#authentication"
+              target="_blank"
+              variant="secondary"
+              size="sm"
+            >
+              Learn more
+            </x-button>
+          </div>
+        </div>
+      </div>
+    </x-container>
+  </section>
+
+  <!-- LLM Section -->
+  <section>
+    <x-container class="pt-[40px] pb-[90px]">
+      <div class="text-center mb-12">
+        <span
+          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-[8px] block"
+          >Truly AI-ready</span
+        >
+
+        <h2
+          class="text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto"
+        >
+          Other frameworks claim to be a good fit for AI agents, here's why
+          Glimr
+          <span class="text-[#FF43A1]">actually</span> is.
+        </h2>
+        <p
+          class="text-[16px] leading-snug text-[#747687] max-w-[600px] mx-auto"
+        >
+          Most frameworks were designed before LLM agents wrote code. Gleam and
+          Glimr have the constraints that make an agent-driven workflow actually
+          reliable.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <!-- Tight feedback loop -->
+        <div class="bg-slate-50 rounded-xl p-7">
+          <div
+            class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+          >
+            <x-icons:update width="18" class="text-[#FF43A1]" />
+          </div>
+          <h3 class="text-[18px] font-semibold mb-2 text-[#2c2e49]">
+            Tight feedback loop
+          </h3>
+          <p class="text-[15px] text-[#747687]">
+            Gleam's strict type system and compiler catch errors instantly. When
+            an LLM generates wrong code, it gets precise error messages it can
+            act on, not silent failures that surface in production.
+          </p>
+        </div>
+
+        <!-- No hidden magic -->
+        <div class="bg-slate-50 rounded-xl p-7">
+          <div
+            class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+          >
+            <x-icons:eye width="18" class="text-[#FF43A1]" />
+          </div>
+          <h3 class="text-[18px] font-semibold mb-2 text-[#2c2e49]">
+            Functional over OOP
+          </h3>
+          <p class="text-[15px] text-[#747687]">
+            Gleam is a functional language, meaning no inheritance, no
+            decorators, no implicit behavior. Everything in Gleam is explicit
+            and in the code. An LLM doesn't need context it can't see.
+          </p>
+        </div>
+
+        <!-- One way to do things -->
+        <div class="bg-slate-50 rounded-xl p-7">
+          <div
+            class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
+          >
+            <x-icons:cube width="18" class="text-[#FF43A1]" />
+          </div>
+          <h3 class="text-[18px] font-semibold mb-2 text-[#2c2e49]">
+            Convention over configuration
+          </h3>
+          <p class="text-[15px] text-[#747687]">
+            Glimr's opinionated conventions mean the LLM doesn't have to choose
+            between ORMs, routers, or project structures. There's one proven
+            path, and it's well-documented.
+          </p>
+        </div>
+      </div>
+
+      <p
+        class="mt-[70px] text-center text-[22px] max-w-3xl mx-auto font-light text-[#2c2e49]"
+      >
+        <span class="bg-[#fde6f1] pl-[3px] rounded-[2px]"
+          >Frameworks like Laravel and Rails pioneered convention over
+          configuration, but they're built on dynamic, object-oriented
+          languages.</span
+        >
+        An LLM can generate code that looks right, passes linting, and breaks in
+        production. Gleam's compiler won't let that happen. Functions take data
+        in and return data out. Conventions tell the LLM <em>what</em> to write.
+        The type system tells it <em>what it got wrong</em>.
+      </p>
+    </x-container>
+  </section>
+
+  <!-- Features -->
+  <section class="bg-slate-50">
+    <x-container class="pt-[70px] pb-[100px]">
+      <div class="text-center mb-12">
+        <span
+          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-[8px] block"
+          >Batteries included</span
+        >
+
+        <h2
+          class="text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto"
+        >
+          Ship with confidence, not dependencies.
+        </h2>
+        <p
+          class="text-[16px] leading-snug text-[#747687] max-w-[600px] mx-auto"
+        >
+          Glimr is still young, but comes with a lot out of the box. Routing,
+          auth, validation, caching, and more. No need to assemble a stack from
+          scattered packages.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-20 gap-y-[35px]">
+        <!-- Middleware -->
+        <div>
+          <x-icons:layers width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Middleware</h3>
+          <p class="text-[15px]">
+            Apply middleware per-route or per-controller. Compose auth, rate
+            limiting, logging, and custom logic in any order.
+          </p>
+        </div>
+
+        <!-- Route groups -->
+        <div>
+          <x-icons:cube width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Route groups</h3>
+          <p class="text-[15px]">
+            Organize routes into web and API groups with their own middleware
+            stacks. Add custom groups as your app grows.
+          </p>
+        </div>
+
+        <!-- Lightning fast routing -->
+        <div>
+          <x-icons:timer width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Lightning fast routing</h3>
+          <p class="text-[15px]">
+            Routes compile to pattern-matched Gleam code on the BEAM runtime.
+            Zero overhead, zero runtime lookups.
+          </p>
+        </div>
+
+        <!-- Postgres + SQLite -->
+        <div>
+          <x-icons:reader width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">PostgreSQL + SQLite</h3>
+          <p class="text-[15px]">
+            First-class support for both databases. Write SQL, and Glimr
+            generates fully typed repository functions and driver-specific
+            migrations automatically.
+          </p>
+        </div>
+
+        <!-- Redis + file cache -->
+        <div>
+          <x-icons:reload width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Redis + file cache</h3>
+          <p class="text-[15px]">
+            Built-in caching with Redis, file, SQLite, and PostgreSQL stores.
+            The remember pattern handles cache-or-compute in a single
+            expression.
+          </p>
+        </div>
+
+        <!-- Multi database -->
+        <div>
+          <x-icons:code width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Multi database</h3>
+          <p class="text-[15px]">
+            Run multiple database connections side by side. Each with its own
+            models, migrations, queries, and generated repositories.
+          </p>
+        </div>
+
+        <!-- Auth scaffolding -->
+        <div>
+          <x-icons:lock width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Auth scaffolding</h3>
+          <p class="text-[15px]">
+            One command generates a full auth stack: model, controllers,
+            validators, middleware, and views. Scoped mode for multi-model auth.
+          </p>
+        </div>
+
+        <!-- Live views -->
+        <div>
+          <x-icons:lightning_bolt width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Live views</h3>
+          <p class="text-[15px]">
+            Server-driven reactivity over WebSockets. SPA navigation, two-way
+            binding, loading states, and components with slots. No JS required.
+          </p>
+        </div>
+
+        <!-- Validation -->
+        <div>
+          <x-icons:check_circle width="19" class="text-[#FFA9D4] mb-3" />
+          <h3 class="text-[18px] font-semibold mb-2">Form validation</h3>
+          <p class="text-[15px]">
+            Declarative rules that return typed structs. Automatic error
+            handling for HTML and JSON responses. Sanitize inputs in one place.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-15">
+        <x-button
+          href="https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-"
+          target="_blank"
+          variant="secondary"
+        >
+          Read the docs
+        </x-button>
+      </div>
+    </x-container>
+  </section>
+
+  <!-- Newsletter -->
+  <section id="newsletter">
+    <x-container class="pt-[80px] pb-[100px]">
+      <div class="max-w-[550px] mx-auto">
+        <span
+          class="font-semibold text-center uppercase text-[14px] text-[#FF43A1] mb-[10px] block"
+          >Join Newsletter</span
+        >
+
+        <h2 class="text-[28px] font-semibold mb-5 leading-[1.1] text-center">
+          Keep up with Glimr's development
+        </h2>
+
+        <p class="text-[16px] leading-snug text-[#747687] mb-8 text-center">
+          Enter your email and stay up to date on new features, releases, and
+          tips for building with Glimr. No spam, unsubscribe anytime.
+        </p>
+
+        <x-alert
+          variant="success"
+          l-if="session.has_flash(ctx.session, 'success.message')"
+        >
+          {{ session.get_flash(ctx.session, "success.message") }}
+        </x-alert>
+
+        <form class="max-w-md mx-auto" method="post" action="/newsletter">
+          <div class="mb-4">
+            <x-input
+              label="Email Address"
+              name="email"
+              id="email"
+              placeholder="you@example.com"
+              :session="ctx.session"
+            />
+          </div>
+
+          <x-button type="submit" class="w-full">Subscribe</x-button>
+        </form>
+      </div>
+    </x-container>
+  </section>
+
+  <x-container class="py-[30px]">
+    <div class="flex justify-between items-center text-slate-700">
+      <div class="flex gap-4 items-center">
+        <x-logo width="20" class="fill-[#2B2E49]" />
+        <a
+          href="https://github.com/miguejarias"
+          class="border-b border-slate-400 hover:text-slate-900"
+          rel="nofollow"
+          target="_blank"
+        >
+          © {{ unix_timestamp.current_year() }} Miguel Arias
+        </a>
+
+        <a
+          href="https://github.com/glimr-org/framework/blob/main/LICENSE.md"
+          class="border-b border-slate-400 hover:text-slate-900"
+          rel="nofollow"
+          target="_blank"
+        >
+          MIT License
+        </a>
+      </div>
+
+      <div>
+        This website is
+        <a
+          href="https://github.com/glimr-org/website"
+          class="border-b border-slate-400 hover:text-slate-900"
+          rel="nofollow"
+          target="_blank"
+        >
+          open-source
+        </a>
+        and built with Glimr!
+      </div>
+    </div>
+  </x-container>
+</x-layouts:app>
