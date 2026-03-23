@@ -16,8 +16,10 @@ props(ctx: context.Context(App))
   <nav x-data="{ open: false }">
     <x-container class="pt-5 pb-3 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2.5">
-        <x-logo width="26" class="fill-[#2B2E49]" />
-        <span class="text-[17px] font-semibold text-[#2B2E49]">Glimr</span>
+        <x-logo width="26" class="fill-[#2B2E49] w-[36px] sm:w-[26px]" />
+        <span class="text-[17px] font-semibold text-[#2B2E49] hidden sm:inline"
+          >Glimr</span
+        >
       </a>
 
       <!-- Desktop links -->
@@ -103,7 +105,7 @@ props(ctx: context.Context(App))
       class="sm:hidden border-t border-slate-100"
     >
       <x-container
-        class="py-4 flex flex-col gap-3 text-[15px] font-medium text-[#2C2E49]"
+        class="py-4 flex flex-col gap-3 text-[16px] md:text-[15px] font-medium text-[#2C2E49]"
       >
         <a
           href="https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-"
@@ -129,23 +131,21 @@ props(ctx: context.Context(App))
   <!-- Hero -->
   <section class="relative overflow-hidden">
     <x-container
-      class="pt-[40px] lg:pt-[60px] pb-[30px] flex flex-col lg:flex-row items-start"
+      class="pt-10 lg:pt-15 pb-7.5 flex flex-col lg:flex-row items-start"
     >
       <!-- Left content -->
-      <div class="flex-1 max-w-sm">
+      <div class="flex-1 sm:max-w-sm">
         <span
-          class="inline-block text-[13px] font-semibold text-[#FF43A1] mb-[20px] bg-[#FFEEF7] rounded-[9px] px-2.5 pb-[1px]"
+          class="inline-block text-[13px] font-semibold text-[#FF43A1] mb-5 bg-[#FFEEF7] rounded-[9px] px-2.5 pb-px"
         >
           v1.0.0
         </span>
 
-        <h1
-          class="text-[28px] sm:text-[33px] leading-[1.07] font-semibold mb-[30px]"
-        >
+        <h1 class="text-[33px] leading-[1.07] font-semibold mb-8">
           Build scalable web apps that LLM's can understand and you can trust.
         </h1>
 
-        <p class="text-[16px] leading-snug mb-[40px] max-w-sm">
+        <p class="text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm">
           Gleam's type safety and functional core, plus Glimr's opinonated
           design mean fewer bugs, confident refactoring, and AI that actually
           writes correct code.
@@ -179,7 +179,7 @@ props(ctx: context.Context(App))
       </div>
 
       <!-- Illustration (mobile) -->
-      <div class="lg:hidden mt-[60px] relative w-[450px]">
+      <div class="sm:hidden mt-15 relative w-150">
         <img src="/static/images/blocks.jpg" />
       </div>
     </x-container>
@@ -187,20 +187,20 @@ props(ctx: context.Context(App))
 
   <!-- Code Showcase -->
   <section>
-    <x-container class="pt-[40px] pb-[70px]">
+    <x-container class="pt-10 pb-17.5">
       <div class="text-center mb-14">
         <span
-          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-[8px] block"
+          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block"
           >Beautiful Code</span
         >
 
         <h2
-          class="text-[24px] sm:text-[30px] font-semibold mb-4 leading-[1.07] max-w-2xl mx-auto"
+          class="text-[28px] sm:text-[30px] font-semibold mb-4 leading-[1.07] max-w-2xl mx-auto"
         >
           A delightful coding experience.
         </h2>
         <p
-          class="text-[16px] leading-snug text-[#747687] max-w-[600px] mx-auto"
+          class="text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto"
         >
           Clean, expressive, and intentional by default. Glimr helps you write
           code you're happy to come back to whether you're a team of 1 or 100.
@@ -638,7 +638,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         </div>
 
         <!-- Right: Heading + Description -->
-        <div class="w-full lg:w-[380px] shrink-0 lg:pt-14">
+        <div class="w-full lg:w-95 shrink-0 lg:pt-14">
           <div x-show="tab === 'routing'">
             <div
               class="w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4"
@@ -648,12 +648,12 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
             <h3 class="text-[20px] font-semibold mb-2">
               Annotation-based routing
             </h3>
-            <p class="text-[15px] mb-3">
+            <p class="text-[16px] md:text-[15px] mb-3">
               Define routes with simple annotations in your controllers. Glimr
               compiles them into a pattern-matched router, not a runtime lookup
               table. The result is extremely fast routing with zero overhead.
             </p>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               Apply middleware at the controller or route level. Routes
               recompile automatically when you save, so there's no manual step
               between writing a handler and testing it.
@@ -677,12 +677,12 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
             <h3 class="text-[20px] font-semibold mb-2">
               Composable middleware
             </h3>
-            <p class="text-[15px] mb-3">
+            <p class="text-[16px] md:text-[15px] mb-3">
               Intercept requests before they reach your controllers. Modify
               context, check auth, log requests, rate limit, or run any custom
               logic.
             </p>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               Apply per-route with the
               <span
                 class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
@@ -713,12 +713,12 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
               <x-icons:lightning_bolt width="18" class="text-[#FF43A1]" />
             </div>
             <h3 class="text-[20px] font-semibold mb-2">Reactive templates</h3>
-            <p class="text-[15px] mb-3">
+            <p class="text-[16px] md:text-[15px] mb-3">
               Loom templates compile to type-safe Gleam. Inspired by Pheonix
               LiveView, add event handlers and they become reactive over
               WebSockets. No JavaScript required.
             </p>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               All state lives on the server. Interactions trigger a minimal diff
               that patches only what changed. Built-in SPA navigation, two-way
               binding, loading states, and components with slots.
@@ -742,12 +742,12 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
             <h3 class="text-[20px] font-semibold mb-2">
               Declarative validation
             </h3>
-            <p class="text-[15px] mb-3">
+            <p class="text-[16px] md:text-[15px] mb-3">
               Define rules declaratively and get back a typed struct, not a bag
               of strings. Validation errors are handled automatically: flashed
               to the session for HTML routes, returned as JSON for APIs.
             </p>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               The
               <span
                 class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
@@ -774,7 +774,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
               <x-icons:stack width="18" class="text-[#FF43A1]" />
             </div>
             <h3 class="text-[20px] font-semibold mb-2">Automatic migrations</h3>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               Define your schema in Gleam with a fluent, type-safe API. Glimr
               compares it against a stored snapshot, detects changes, and
               generates driver-specific SQL migrations automatically. Just run
@@ -801,13 +801,13 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
               <x-icons:reader width="18" class="text-[#FF43A1]" />
             </div>
             <h3 class="text-[20px] font-semibold mb-2">SQL over ORM</h3>
-            <p class="text-[15px] mb-3">
+            <p class="text-[16px] md:text-[15px] mb-3">
               Write real SQL in plain <span class="font-medium">.sql</span>
               files. Glimr automatically generates fully typed Gleam repository
               functions you can use directly in your controllers. No ORM magic,
               no query builders, just write plain SQL like God intended.
             </p>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               Need multiple databases? Glimr supports multiple connections out
               of the box. SQLite, PostgreSQL, or both. Each with its own models,
               migrations, and generated repositories.
@@ -829,7 +829,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
               <x-icons:timer width="18" class="text-[#FF43A1]" />
             </div>
             <h3 class="text-[20px] font-semibold mb-2">Caching</h3>
-            <p class="text-[15px] mb-3">
+            <p class="text-[16px] md:text-[15px] mb-3">
               Built-in caching with file, Redis, SQLite, and PostgreSQL stores.
               The
               <span
@@ -839,7 +839,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
               pattern fetches from cache or computes on miss in a single
               expression.
             </p>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               Cache strings, JSON, or structured data with auto-generated
               encoders and decoders. Supports TTL, increment/decrement for rate
               limiting, and flush operations.
@@ -861,7 +861,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
               <x-icons:lock width="18" class="text-[#FF43A1]" />
             </div>
             <h3 class="text-[20px] font-semibold mb-2">Built-in auth</h3>
-            <p class="text-[15px] mb-3">
+            <p class="text-[16px] md:text-[15px] mb-3">
               Run
               <span
                 class="font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded"
@@ -871,7 +871,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
               controllers, validators, middleware, and Loom views. All
               generated, all type-safe.
             </p>
-            <p class="text-[15px] mb-6">
+            <p class="text-[16px] md:text-[15px] mb-6">
               Need separate auth for admins and users? Use scoped mode for fully
               independent auth stacks with their own middleware, sessions, and
               routes.
@@ -892,22 +892,22 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
 
   <!-- LLM Section -->
   <section>
-    <x-container class="pt-[40px] pb-[90px]">
+    <x-container class="pt-10 pb-22.5">
       <div class="text-center mb-12">
         <span
-          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-[8px] block"
+          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block"
           >Truly AI-ready</span
         >
 
         <h2
-          class="text-[24px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto"
+          class="text-[28px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto"
         >
           Other frameworks claim to be a good fit for AI agents, here's why
           Glimr
           <span class="text-[#FF43A1]">actually</span> is.
         </h2>
         <p
-          class="text-[16px] leading-snug text-[#747687] max-w-[600px] mx-auto"
+          class="text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto"
         >
           Most frameworks were designed before LLM agents wrote code. Gleam and
           Glimr have the constraints that make an agent-driven workflow actually
@@ -926,7 +926,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
           <h3 class="text-[18px] font-semibold mb-2 text-[#2c2e49]">
             Tight feedback loop
           </h3>
-          <p class="text-[15px] text-[#747687]">
+          <p class="text-[16px] md:text-[15px] text-[#747687]">
             Gleam's strict type system and compiler catch errors instantly. When
             an LLM generates wrong code, it gets precise error messages it can
             act on, not silent failures that surface in production.
@@ -943,7 +943,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
           <h3 class="text-[18px] font-semibold mb-2 text-[#2c2e49]">
             Functional over OOP
           </h3>
-          <p class="text-[15px] text-[#747687]">
+          <p class="text-[16px] md:text-[15px] text-[#747687]">
             Gleam is a functional language, meaning no inheritance, no
             decorators, no implicit behavior. Everything in Gleam is explicit
             and in the code. An LLM doesn't need context it can't see.
@@ -960,7 +960,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
           <h3 class="text-[18px] font-semibold mb-2 text-[#2c2e49]">
             Convention over configuration
           </h3>
-          <p class="text-[15px] text-[#747687]">
+          <p class="text-[16px] md:text-[15px] text-[#747687]">
             Glimr's opinionated conventions mean the LLM doesn't have to choose
             between ORMs, routers, or project structures. There's one proven
             path, and it's well-documented.
@@ -969,9 +969,9 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
       </div>
 
       <p
-        class="mt-[70px] text-center text-[22px] max-w-3xl mx-auto font-light text-[#2c2e49]"
+        class="mt-17.5 text-center text-[22px] max-w-3xl mx-auto font-light text-[#2c2e49]"
       >
-        <span class="bg-[#fde6f1] pl-[3px] rounded-[2px]"
+        <span class="bg-[#fde6f1] pl-0.75 rounded-xs"
           >Frameworks like Laravel and Rails pioneered convention over
           configuration, but they're built on dynamic, object-oriented
           languages.</span
@@ -986,20 +986,20 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
 
   <!-- Features -->
   <section class="bg-slate-50">
-    <x-container class="pt-[70px] pb-[100px]">
+    <x-container class="pt-17.5 pb-25">
       <div class="text-center mb-12">
         <span
-          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-[8px] block"
+          class="font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block"
           >Batteries included</span
         >
 
         <h2
-          class="text-[24px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto"
+          class="text-[28px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto"
         >
           Ship with confidence, not dependencies.
         </h2>
         <p
-          class="text-[16px] leading-snug text-[#747687] max-w-[600px] mx-auto"
+          class="text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto"
         >
           Glimr is still young, but comes with a lot out of the box. Routing,
           auth, validation, caching, and more. No need to assemble a stack from
@@ -1007,42 +1007,62 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-20 gap-y-[35px]">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-20 gap-y-8.75">
         <!-- Middleware -->
-        <div>
-          <x-icons:layers width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:layers
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Middleware</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             Apply middleware per-route or per-controller. Compose auth, rate
             limiting, logging, and custom logic in any order.
           </p>
         </div>
 
         <!-- Route groups -->
-        <div>
-          <x-icons:cube width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:cube
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Route groups</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             Organize routes into web and API groups with their own middleware
             stacks. Add custom groups as your app grows.
           </p>
         </div>
 
         <!-- Lightning fast routing -->
-        <div>
-          <x-icons:timer width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:timer
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Lightning fast routing</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             Routes compile to pattern-matched Gleam code on the BEAM runtime.
             Zero overhead, zero runtime lookups.
           </p>
         </div>
 
         <!-- Postgres + SQLite -->
-        <div>
-          <x-icons:reader width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:reader
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">PostgreSQL + SQLite</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             First-class support for both databases. Write SQL, and Glimr
             generates fully typed repository functions and driver-specific
             migrations automatically.
@@ -1050,10 +1070,15 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         </div>
 
         <!-- Redis + file cache -->
-        <div>
-          <x-icons:reload width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:reload
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Redis + file cache</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             Built-in caching with Redis, file, SQLite, and PostgreSQL stores.
             The remember pattern handles cache-or-compute in a single
             expression.
@@ -1061,40 +1086,60 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         </div>
 
         <!-- Multi database -->
-        <div>
-          <x-icons:code width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:code
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Multi database</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             Run multiple database connections side by side. Each with its own
             models, migrations, queries, and generated repositories.
           </p>
         </div>
 
         <!-- Auth scaffolding -->
-        <div>
-          <x-icons:lock width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:lock
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Auth scaffolding</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             One command generates a full auth stack: model, controllers,
             validators, middleware, and views. Scoped mode for multi-model auth.
           </p>
         </div>
 
         <!-- Live views -->
-        <div>
-          <x-icons:lightning_bolt width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:lightning_bolt
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Live views</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             Server-driven reactivity over WebSockets. SPA navigation, two-way
             binding, loading states, and components with slots. No JS required.
           </p>
         </div>
 
         <!-- Validation -->
-        <div>
-          <x-icons:check_circle width="19" class="text-[#FFA9D4] mb-3" />
+        <div
+          class="max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0"
+        >
+          <x-icons:check_circle
+            width="19"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+          />
           <h3 class="text-[18px] font-semibold mb-2">Form validation</h3>
-          <p class="text-[15px]">
+          <p class="text-[16px] md:text-[15px]">
             Declarative rules that return typed structs. Automatic error
             handling for HTML and JSON responses. Sanitize inputs in one place.
           </p>
@@ -1115,20 +1160,20 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
 
   <!-- Newsletter -->
   <section id="newsletter">
-    <x-container class="pt-[80px] pb-[100px]">
-      <div class="max-w-[550px] mx-auto">
+    <x-container class="pt-20 pb-25">
+      <div class="max-w-137.5 mx-auto">
         <span
-          class="font-semibold text-center uppercase text-[14px] text-[#FF43A1] mb-[10px] block"
+          class="font-semibold text-center uppercase text-[14px] text-[#FF43A1] mb-2.5 block"
           >Join Newsletter</span
         >
 
-        <h2
-          class="text-[24px] sm:text-[28px] font-semibold mb-5 leading-[1.1] text-center"
-        >
+        <h2 class="text-[28px] font-semibold mb-5 leading-[1.1] text-center">
           Keep up with Glimr's development
         </h2>
 
-        <p class="text-[16px] leading-snug text-[#747687] mb-8 text-center">
+        <p
+          class="text-[17px] md:text-[16px] leading-snug text-[#747687] mb-8 text-center"
+        >
           Enter your email and stay up to date on new features, releases, and
           tips for building with Glimr. No spam, unsubscribe anytime.
         </p>
@@ -1157,7 +1202,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
     </x-container>
   </section>
 
-  <x-container class="py-[30px]">
+  <x-container class="py-7.5">
     <div
       class="flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-700 text-center sm:text-left"
     >
