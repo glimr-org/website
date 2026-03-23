@@ -37,119 +37,6 @@ pub fn decoder() -> decode.Decoder(Signup) {
   decode.success(Signup(id, email, created_at, updated_at))
 }
 
-pub fn find(pool pool: db.DbPool, id id: Int) -> Result(Signup, db.DbError) {
-  use connection <- db.get_connection(pool)
-  find_wc(connection: connection, id: id)
-}
-
-pub fn find_wc(
-  connection connection: db.Connection,
-  id id: Int,
-) -> Result(Signup, db.DbError) {
-  case
-    db.query_with(
-      connection,
-      "SELECT * FROM signups WHERE id = $1",
-      [db.int(id)],
-      row_decoder(),
-    )
-  {
-    Ok(db.QueryResult(_, [row])) -> Ok(row)
-    Ok(db.QueryResult(_, [])) -> Error(db.NotFound)
-    Ok(_) -> Error(db.QueryError("Expected single row"))
-    Error(e) -> Error(e)
-  }
-}
-
-pub fn find_or_fail(pool pool: db.DbPool, id id: Int) -> Signup {
-  use connection <- db.get_connection(pool)
-  find_or_fail_wc(connection: connection, id: id)
-}
-
-pub fn find_or_fail_wc(
-  connection connection: db.Connection,
-  id id: Int,
-) -> Signup {
-  find_wc(connection: connection, id: id)
-  |> db.expect
-}
-
-pub fn delete(pool pool: db.DbPool, id id: Int) -> Result(Int, db.DbError) {
-  use connection <- db.get_connection(pool)
-  delete_wc(connection: connection, id: id)
-}
-
-pub fn delete_wc(
-  connection connection: db.Connection,
-  id id: Int,
-) -> Result(Int, db.DbError) {
-  db.exec_with(connection, "DELETE FROM signups WHERE id = $1", [db.int(id)])
-}
-
-pub fn delete_or_fail(pool pool: db.DbPool, id id: Int) -> Int {
-  use connection <- db.get_connection(pool)
-  delete_or_fail_wc(connection: connection, id: id)
-}
-
-pub fn delete_or_fail_wc(
-  connection connection: db.Connection,
-  id id: Int,
-) -> Int {
-  delete_wc(connection: connection, id: id)
-  |> db.expect
-}
-
-pub fn update(
-  pool pool: db.DbPool,
-  id id: Int,
-  email email: String,
-  p3 p3: String,
-) -> Result(Signup, db.DbError) {
-  use connection <- db.get_connection(pool)
-  update_wc(connection: connection, id: id, email: email, p3: p3)
-}
-
-pub fn update_wc(
-  connection connection: db.Connection,
-  id id: Int,
-  email email: String,
-  p3 p3: String,
-) -> Result(Signup, db.DbError) {
-  case
-    db.query_with(
-      connection,
-      "UPDATE signups SET email = $2 SET updated_at = $3 WHERE id = $1 RETURNING *",
-      [db.int(id), db.string(email), db.string(p3)],
-      row_decoder(),
-    )
-  {
-    Ok(db.QueryResult(_, [row])) -> Ok(row)
-    Ok(db.QueryResult(_, [])) -> Error(db.NotFound)
-    Ok(_) -> Error(db.QueryError("Expected single row"))
-    Error(e) -> Error(e)
-  }
-}
-
-pub fn update_or_fail(
-  pool pool: db.DbPool,
-  id id: Int,
-  email email: String,
-  p3 p3: String,
-) -> Signup {
-  use connection <- db.get_connection(pool)
-  update_or_fail_wc(connection: connection, id: id, email: email, p3: p3)
-}
-
-pub fn update_or_fail_wc(
-  connection connection: db.Connection,
-  id id: Int,
-  email email: String,
-  p3 p3: String,
-) -> Signup {
-  update_wc(connection: connection, id: id, email: email, p3: p3)
-  |> db.expect
-}
-
 pub fn create(
   pool pool: db.DbPool,
   email email: String,
@@ -216,6 +103,68 @@ pub fn create_or_fail_wc(
   |> db.expect
 }
 
+pub fn delete(pool pool: db.DbPool, id id: Int) -> Result(Int, db.DbError) {
+  use connection <- db.get_connection(pool)
+  delete_wc(connection: connection, id: id)
+}
+
+pub fn delete_wc(
+  connection connection: db.Connection,
+  id id: Int,
+) -> Result(Int, db.DbError) {
+  db.exec_with(connection, "DELETE FROM signups WHERE id = $1", [db.int(id)])
+}
+
+pub fn delete_or_fail(pool pool: db.DbPool, id id: Int) -> Int {
+  use connection <- db.get_connection(pool)
+  delete_or_fail_wc(connection: connection, id: id)
+}
+
+pub fn delete_or_fail_wc(
+  connection connection: db.Connection,
+  id id: Int,
+) -> Int {
+  delete_wc(connection: connection, id: id)
+  |> db.expect
+}
+
+pub fn find(pool pool: db.DbPool, id id: Int) -> Result(Signup, db.DbError) {
+  use connection <- db.get_connection(pool)
+  find_wc(connection: connection, id: id)
+}
+
+pub fn find_wc(
+  connection connection: db.Connection,
+  id id: Int,
+) -> Result(Signup, db.DbError) {
+  case
+    db.query_with(
+      connection,
+      "SELECT * FROM signups WHERE id = $1",
+      [db.int(id)],
+      row_decoder(),
+    )
+  {
+    Ok(db.QueryResult(_, [row])) -> Ok(row)
+    Ok(db.QueryResult(_, [])) -> Error(db.NotFound)
+    Ok(_) -> Error(db.QueryError("Expected single row"))
+    Error(e) -> Error(e)
+  }
+}
+
+pub fn find_or_fail(pool pool: db.DbPool, id id: Int) -> Signup {
+  use connection <- db.get_connection(pool)
+  find_or_fail_wc(connection: connection, id: id)
+}
+
+pub fn find_or_fail_wc(
+  connection connection: db.Connection,
+  id id: Int,
+) -> Signup {
+  find_wc(connection: connection, id: id)
+  |> db.expect
+}
+
 pub fn list(pool pool: db.DbPool) -> Result(List(Signup), db.DbError) {
   use connection <- db.get_connection(pool)
   list_wc(connection: connection)
@@ -244,5 +193,56 @@ pub fn list_or_fail(pool pool: db.DbPool) -> List(Signup) {
 
 pub fn list_or_fail_wc(connection connection: db.Connection) -> List(Signup) {
   list_wc(connection: connection)
+  |> db.expect
+}
+
+pub fn update(
+  pool pool: db.DbPool,
+  id id: Int,
+  email email: String,
+  p3 p3: String,
+) -> Result(Signup, db.DbError) {
+  use connection <- db.get_connection(pool)
+  update_wc(connection: connection, id: id, email: email, p3: p3)
+}
+
+pub fn update_wc(
+  connection connection: db.Connection,
+  id id: Int,
+  email email: String,
+  p3 p3: String,
+) -> Result(Signup, db.DbError) {
+  case
+    db.query_with(
+      connection,
+      "UPDATE signups SET email = $2 SET updated_at = $3 WHERE id = $1 RETURNING *",
+      [db.int(id), db.string(email), db.string(p3)],
+      row_decoder(),
+    )
+  {
+    Ok(db.QueryResult(_, [row])) -> Ok(row)
+    Ok(db.QueryResult(_, [])) -> Error(db.NotFound)
+    Ok(_) -> Error(db.QueryError("Expected single row"))
+    Error(e) -> Error(e)
+  }
+}
+
+pub fn update_or_fail(
+  pool pool: db.DbPool,
+  id id: Int,
+  email email: String,
+  p3 p3: String,
+) -> Signup {
+  use connection <- db.get_connection(pool)
+  update_or_fail_wc(connection: connection, id: id, email: email, p3: p3)
+}
+
+pub fn update_or_fail_wc(
+  connection connection: db.Connection,
+  id id: Int,
+  email email: String,
+  p3 p3: String,
+) -> Signup {
+  update_wc(connection: connection, id: id, email: email, p3: p3)
   |> db.expect
 }
