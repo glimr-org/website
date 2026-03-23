@@ -8,6 +8,7 @@ RUN npm run build
 
 # Stage 2: Build the Gleam application
 FROM ghcr.io/gleam-lang/gleam:v1.14.0-erlang-alpine AS builder
+RUN apk add --no-cache build-base
 WORKDIR /app
 COPY gleam.toml manifest.toml ./
 COPY src/ src/
