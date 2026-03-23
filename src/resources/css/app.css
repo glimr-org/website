@@ -33,6 +33,10 @@
   --text-base: 15px;
 }
 
+[x-cloak] {
+  display: none !important;
+}
+
 .nav .widget {
   position: relative;
   top: 3px;

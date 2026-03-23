@@ -55,7 +55,7 @@ pub fn render(
     }
     False -> ""
   }
-  <> "\n  <pre\n    class=\"bg-slate-50 text-[#4c4f69] p-5 text-[13.5px] leading-relaxed overflow-x-auto font-mono font-light min-h-[340px]\"\n  >"
+  <> "\n  <pre\n    class=\"bg-slate-50 text-[#4c4f69] p-4 sm:p-5 text-[12px] sm:text-[13.5px] leading-relaxed overflow-x-auto font-mono font-light min-h-[200px] sm:min-h-[340px]\"\n  >"
   <> "<code"
   <> " "
   <> runtime.render_attributes([runtime.Attribute("data-lang", language)])

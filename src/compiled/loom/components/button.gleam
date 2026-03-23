@@ -29,7 +29,7 @@ pub fn render(
             "class",
             runtime.build_classes([
               runtime.class(
-                "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block",
+                "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block text-center",
               ),
               runtime.class(case size {
                 "sm" -> "py-2 px-4 text-[13.5px]"
@@ -66,7 +66,7 @@ pub fn render(
             "class",
             runtime.build_classes([
               runtime.class(
-                "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block",
+                "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block text-center",
               ),
               runtime.class(case size {
                 "sm" -> "py-2 px-4 text-[13.5px]"
