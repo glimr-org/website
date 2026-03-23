@@ -6,27 +6,20 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Stage 2: Build the Gleam application
-FROM ghcr.io/gleam-lang/gleam:v1.14.0-erlang-alpine AS builder
-RUN apk add --no-cache build-base
+# Stage 2: Runtime image with full Gleam toolchain
+FROM ghcr.io/gleam-lang/gleam:v1.14.0-erlang-alpine
+RUN apk add --no-cache build-base wget bash
 WORKDIR /app
+
 COPY gleam.toml manifest.toml ./
 COPY src/ src/
 COPY config/ config/
+COPY glimr ./glimr
 COPY --from=frontend /app/priv/ priv/
-RUN gleam export erlang-shipment
-
-# Stage 3: Runtime image
-FROM erlang:28-alpine AS runtime
-WORKDIR /app
-
-RUN apk add --no-cache wget && adduser -D webapp
-COPY --from=builder /app/build/erlang-shipment /app
-COPY --from=frontend /app/priv/ /app/priv/
-COPY config/ /app/config/
 COPY healthcheck.sh /app/healthcheck.sh
-RUN chown -R webapp:webapp /app
 
-USER webapp
-ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["run"]
+RUN gleam build
+RUN chmod +x /app/glimr /app/healthcheck.sh
+
+EXPOSE 8000
+CMD ["gleam", "run"]
