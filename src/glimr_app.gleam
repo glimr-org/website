@@ -29,6 +29,7 @@ pub fn main() -> Nil {
     glimr_mist.handler(bootstrap.init(), config.get_string("app.key"))
     |> mist.new()
     |> mist.port(get_port())
+    |> mist.bind("0.0.0.0")
     |> mist.start()
 
   process.sleep_forever()
