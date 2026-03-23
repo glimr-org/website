@@ -109,7 +109,7 @@ pub fn render(ctx ctx: context.Context(App)) -> String {
               runtime.Attribute("class", "w-full sm:w-auto"),
             ],
           )
-          <> "\n        </div>\n      </div>\n\n      <!-- Right illustration (desktop) -->\n      <div class=\"flex-1 hidden lg:flex justify-center items-center\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n\n      <!-- Illustration (mobile) -->\n      <div class=\"sm:hidden mt-15 relative w-150\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n    "
+          <> "\n        </div>\n      </div>\n\n      <!-- Right illustration (desktop) -->\n      <div class=\"flex-1 hidden lg:flex justify-center items-center\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n\n      <!-- Illustration (mobile) -->\n      <div class=\"sm:hidden mt-15 relative w-150 right-22.5\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n    "
         },
         attributes: [
           runtime.Attribute(
