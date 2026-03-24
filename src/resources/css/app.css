@@ -9,10 +9,6 @@
 @import "tailwindcss";
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     font-size: 15px;
     color: #747687;
