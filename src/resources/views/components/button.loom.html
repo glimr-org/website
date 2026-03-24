@@ -12,7 +12,7 @@ props(variant: String, href: String, size: String)
     case size {
       'sm' -> 'py-2 px-4 text-[13.5px]'
       'lg' -> 'py-3 px-8 text-[17px]'
-      _ -> 'py-2.5 px-6 text-[16px]'
+      _ -> 'py-2.5 px-6 text-[17px] sm:text-[16px]'
     },
     case variant {
       'secondary' -> 'bg-mist-100 text-gray-700 hover:bg-mist-200 focus:ring-mist-400'
@@ -33,7 +33,7 @@ props(variant: String, href: String, size: String)
     case size {
       'sm' -> 'py-2 px-4 text-[13.5px]'
       'lg' -> 'py-3 px-8 text-[17px]'
-      _ -> 'py-2.5 px-6 text-[16px]'
+      _ -> 'py-2.5 px-6 text-[17px] sm:text-[16px]'
     },
     case variant {
       'secondary' -> 'bg-slate-100 text-gray-700 hover:bg-slate-200 focus:ring-slate-400'
