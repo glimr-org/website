@@ -34,7 +34,7 @@ pub fn render(
               runtime.class(case size {
                 "sm" -> "py-2 px-4 text-[13.5px]"
                 "lg" -> "py-3 px-8 text-[17px]"
-                _ -> "py-2.5 px-6 text-[16px]"
+                _ -> "py-2.5 px-6 text-[17px] sm:text-[16px]"
               }),
               runtime.class(case variant {
                 "secondary" ->
@@ -71,7 +71,7 @@ pub fn render(
               runtime.class(case size {
                 "sm" -> "py-2 px-4 text-[13.5px]"
                 "lg" -> "py-3 px-8 text-[17px]"
-                _ -> "py-2.5 px-6 text-[16px]"
+                _ -> "py-2.5 px-6 text-[17px] sm:text-[16px]"
               }),
               runtime.class(case variant {
                 "secondary" ->
