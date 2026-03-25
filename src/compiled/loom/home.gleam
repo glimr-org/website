@@ -53,7 +53,7 @@ pub fn render(ctx ctx: context.Context(App)) -> String {
           <> "\n      <a href=\"/\" class=\"flex items-center gap-2.5\">\n        "
           <> components_logo.render(attributes: [
             runtime.Attribute("width", "26"),
-            runtime.Attribute("class", "fill-[#2B2E49] w-[36px] sm:w-[26px]"),
+            runtime.Attribute("class", "fill-[#2B2E49] w-9 sm:w-6.5"),
           ])
           <> "\n        <span class=\"text-[17px] font-semibold text-[#2B2E49] hidden sm:inline\"\n          >Glimr</span>\n      </a>\n\n      <!-- Desktop links -->\n      <div\n        class=\"hidden sm:flex items-center gap-6 text-[14.5px] font-medium text-[#2C2E49] nav\"\n      >\n        <a\n          href=\"https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Docs\n        </a>\n        <a\n          href=\"https://github.com/glimr-org/glimr\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Github\n        </a>\n        <a\n          href=\"https://hexdocs.pm/glimr\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Hex\n        </a>\n      </div>\n\n      <!-- Mobile hamburger -->\n      <button\n        x-on:click=\"open = !open\"\n        class=\"sm:hidden p-1 text-[#2C2E49]\"\n        aria-label=\"Toggle menu\"\n      >\n        <svg\n          x-show=\"!open\"\n          width=\"24\"\n          height=\"24\"\n          viewBox=\"0 0 15 15\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path\n            d=\"M1.5 3C1.22386 3 1 3.22386 1 3.5C1 3.77614 1.22386 4 1.5 4H13.5C13.7761 4 14 3.77614 14 3.5C14 3.22386 13.7761 3 13.5 3H1.5ZM1 7.5C1 7.22386 1.22386 7 1.5 7H13.5C13.7761 7 14 7.22386 14 7.5C14 7.77614 13.7761 8 13.5 8H1.5C1.22386 8 1 7.77614 1 7.5ZM1 11.5C1 11.2239 1.22386 11 1.5 11H13.5C13.7761 11 14 11.2239 14 11.5C14 11.7761 13.7761 12 13.5 12H1.5C1.22386 12 1 11.7761 1 11.5Z\"\n            fill=\"currentColor\"\n            fill-rule=\"evenodd\"\n            clip-rule=\"evenodd\"\n          />\n        </svg>\n        <svg\n          x-show=\"open\"\n          x-cloak\n          width=\"24\"\n          height=\"24\"\n          viewBox=\"0 0 15 15\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path\n            d=\"M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z\"\n            fill=\"currentColor\"\n            fill-rule=\"evenodd\"\n            clip-rule=\"evenodd\"\n          />\n        </svg>\n      </button>\n    "
         },
@@ -81,7 +81,7 @@ pub fn render(ctx ctx: context.Context(App)) -> String {
       <> components_container.render(
         slot: {
           ""
-          <> "\n      <!-- Left content -->\n      <div class=\"flex-1 sm:max-w-sm\">\n        <span\n          class=\"inline-block text-[13px] font-semibold text-[#FF43A1] mb-5 bg-[#FFEEF7] rounded-[9px] px-2.5 pb-px\"\n        >\n          v1.0.0\n        </span>\n\n        <h1\n          class=\"text-[34px] sm:text-[33px] leading-[1.07] font-semibold mb-8\"\n        >\n          Build scalable web apps that LLM's can understand and you can trust.\n        </h1>\n\n        <p class=\"text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm\">\n          Gleam's type safety and functional core, plus Glimr's opinonated\n          design mean fewer bugs, confident refactoring, and AI that actually\n          writes correct code.\n        </p>\n\n        <div\n          class=\"flex flex-col sm:flex-row gap-3 items-start sm:items-center\"\n        >\n          "
+          <> "\n      <!-- Left content -->\n      <div class=\"flex-1 sm:max-w-sm\">\n        <span\n          class=\"inline-block text-[13px] font-semibold text-[#FF43A1] mb-5 bg-[#FFEEF7] rounded-[9px] px-2.5 pb-px\"\n        >\n          v1.0.0\n        </span>\n\n        <h1\n          class=\"text-[34px] sm:text-[33px] leading-[1.07] font-semibold mb-8\"\n        >\n          Build scalable web apps that LLM's can understand and you can trust.\n        </h1>\n\n        <p class=\"text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm\">\n          Gleam's type safety and functional core, plus Glimr's opinionated\n          design mean fewer bugs, confident refactoring, and AI that actually\n          writes correct code.\n        </p>\n\n        <div\n          class=\"flex flex-col sm:flex-row gap-3 items-start sm:items-center\"\n        >\n          "
           <> components_button.render(
             href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
             variant: "",
@@ -494,47 +494,74 @@ pub fn render(ctx ctx: context.Context(App)) -> String {
           <> "\n      <div class=\"text-center mb-12\">\n        <span\n          class=\"font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block\"\n          >Batteries included</span>\n\n        <h2\n          class=\"text-[28px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto\"\n        >\n          Ship with confidence, not dependencies.\n        </h2>\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto\"\n        >\n          Glimr is still young, but comes with a lot out of the box. Routing,\n          auth, validation, caching, and more. No need to assemble a stack from\n          scattered packages.\n        </p>\n      </div>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-x-20 gap-y-8.75\">\n        <!-- Middleware -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_layers.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Middleware</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Apply middleware per-route or per-controller. Compose auth, rate\n            limiting, logging, and custom logic in any order.\n          </p>\n        </div>\n\n        <!-- Route groups -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_cube.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Route groups</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Organize routes into web and API groups with their own middleware\n            stacks. Add custom groups as your app grows.\n          </p>\n        </div>\n\n        <!-- Lightning fast routing -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_timer.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Lightning fast routing</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Routes compile to pattern-matched Gleam code on the BEAM runtime.\n            Zero overhead, zero runtime lookups.\n          </p>\n        </div>\n\n        <!-- Postgres + SQLite -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_reader.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">PostgreSQL + SQLite</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            First-class support for both databases. Write SQL, and Glimr\n            generates fully typed repository functions and driver-specific\n            migrations automatically.\n          </p>\n        </div>\n\n        <!-- Redis + file cache -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_reload.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Redis + file cache</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Built-in caching with Redis, file, SQLite, and PostgreSQL stores.\n            The remember pattern handles cache-or-compute in a single\n            expression.\n          </p>\n        </div>\n\n        <!-- Multi database -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_code.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Multi database</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Run multiple database connections side by side. Each with its own\n            models, migrations, queries, and generated repositories.\n          </p>\n        </div>\n\n        <!-- Auth scaffolding -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_lock.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Auth scaffolding</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            One command generates a full auth stack: model, controllers,\n            validators, middleware, and views. Scoped mode for multi-model auth.\n          </p>\n        </div>\n\n        <!-- Live views -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_lightning_bolt.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Live views</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Server-driven reactivity over WebSockets. SPA navigation, two-way\n            binding, loading states, and components with slots. No JS required.\n          </p>\n        </div>\n\n        <!-- Validation -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
           <> components_icons_check_circle.render(attributes: [
             runtime.Attribute("width", "19"),
-            runtime.Attribute("class", "text-[#FFA9D4] mb-3 mx-auto md:mx-0"),
+            runtime.Attribute(
+              "class",
+              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            ),
           ])
           <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Form validation</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Declarative rules that return typed structs. Automatic error\n            handling for HTML and JSON responses. Sanitize inputs in one place.\n          </p>\n        </div>\n      </div>\n\n      <div class=\"text-center mt-15\">\n        "
           <> components_button.render(

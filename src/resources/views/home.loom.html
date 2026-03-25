@@ -16,7 +16,7 @@ props(ctx: context.Context(App))
   <nav x-data="{ open: false }">
     <x-container class="pt-5 pb-3 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2.5">
-        <x-logo width="26" class="fill-[#2B2E49] w-[36px] sm:w-[26px]" />
+        <x-logo width="26" class="fill-[#2B2E49] w-9 sm:w-6.5" />
         <span class="text-[17px] font-semibold text-[#2B2E49] hidden sm:inline"
           >Glimr</span
         >
@@ -148,7 +148,7 @@ props(ctx: context.Context(App))
         </h1>
 
         <p class="text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm">
-          Gleam's type safety and functional core, plus Glimr's opinonated
+          Gleam's type safety and functional core, plus Glimr's opinionated
           design mean fewer bugs, confident refactoring, and AI that actually
           writes correct code.
         </p>
@@ -1016,7 +1016,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:layers
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Middleware</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1031,7 +1031,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:cube
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Route groups</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1046,7 +1046,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:timer
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Lightning fast routing</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1061,7 +1061,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:reader
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">PostgreSQL + SQLite</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1077,7 +1077,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:reload
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Redis + file cache</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1093,7 +1093,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:code
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Multi database</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1108,7 +1108,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:lock
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Auth scaffolding</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1123,7 +1123,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:lightning_bolt
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Live views</h3>
           <p class="text-[16px] md:text-[15px]">
@@ -1138,7 +1138,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
         >
           <x-icons:check_circle
             width="19"
-            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0"
+            class="text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]"
           />
           <h3 class="text-[18px] font-semibold mb-2">Form validation</h3>
           <p class="text-[16px] md:text-[15px]">
