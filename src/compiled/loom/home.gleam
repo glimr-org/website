@@ -6,8 +6,6 @@
 //// loom:compile`.
 ////
 
-import app/app.{type App}
-import compiled/loom/components/alert as components_alert
 import compiled/loom/components/button as components_button
 import compiled/loom/components/code as components_code
 import compiled/loom/components/container as components_container
@@ -25,15 +23,13 @@ import compiled/loom/components/icons/rocket as components_icons_rocket
 import compiled/loom/components/icons/stack as components_icons_stack
 import compiled/loom/components/icons/timer as components_icons_timer
 import compiled/loom/components/icons/update as components_icons_update
-import compiled/loom/components/input as components_input
 import compiled/loom/components/layouts/app as components_layouts_app
 import compiled/loom/components/logo as components_logo
-import glimr/http/context
+import compiled/loom/components/signup_form as components_signup_form
 import glimr/loom/runtime
-import glimr/session/session
 import glimr/utils/unix_timestamp
 
-pub fn render(ctx ctx: context.Context(App)) -> String {
+pub fn render() -> String {
   ""
   <> components_layouts_app.render(
     slot_meta_title: {
@@ -587,50 +583,8 @@ pub fn render(ctx ctx: context.Context(App)) -> String {
         slot: {
           ""
           <> "\n      <div class=\"max-w-137.5 mx-auto\">\n        <span\n          class=\"font-semibold text-center uppercase text-[14px] text-[#FF43A1] mb-2.5 block\"\n          >Join Newsletter</span>\n\n        <h2 class=\"text-[28px] font-semibold mb-5 leading-[1.1] text-center\">\n          Keep up with Glimr's development\n        </h2>\n\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] mb-8 text-center\"\n        >\n          Enter your email and stay up to date on new features, releases, and\n          tips for building with Glimr. No spam, unsubscribe anytime.\n        </p>\n\n        "
-          <> case session.has_flash(ctx.session, "success.message") {
-            True -> {
-              ""
-              <> components_alert.render(
-                variant: "success",
-                slot: {
-                  ""
-                  <> "\n          "
-                  <> runtime.display(session.get_flash(
-                    ctx.session,
-                    "success.message",
-                  ))
-                  <> "\n        "
-                },
-                attributes: [runtime.Attribute("variant", "success")],
-              )
-            }
-            False -> ""
-          }
-          <> "\n\n        <form class=\"max-w-md mx-auto\" method=\"post\" action=\"/newsletter\">\n          <div class=\"mb-4\">\n            "
-          <> components_input.render(
-            label: "Email Address",
-            name: "email",
-            id: "email",
-            session: ctx.session,
-            attributes: [
-              runtime.Attribute("label", "Email Address"),
-              runtime.Attribute("name", "email"),
-              runtime.Attribute("id", "email"),
-              runtime.Attribute("placeholder", "you@example.com"),
-            ],
-          )
-          <> "\n          </div>\n\n          "
-          <> components_button.render(
-            variant: "",
-            href: "",
-            size: "",
-            slot: { "" <> "Subscribe" },
-            attributes: [
-              runtime.Attribute("type", "submit"),
-              runtime.Attribute("class", "w-full"),
-            ],
-          )
-          <> "\n        </form>\n      </div>\n    "
+          <> components_signup_form.render(attributes: [])
+          <> "\n      </div>\n    "
         },
         attributes: [runtime.Attribute("class", "pt-20 pb-25")],
       )

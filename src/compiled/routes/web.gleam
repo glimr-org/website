@@ -17,7 +17,7 @@ pub fn routes(path, method, ctx) {
   case path {
     [] ->
       case method {
-        Get -> home_controller.show(ctx)
+        Get -> home_controller.show()
         _ -> response.method_not_allowed([Get])
       }
 

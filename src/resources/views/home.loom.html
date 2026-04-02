@@ -1,10 +1,5 @@
 ---
-import glimr/session/session
-import glimr/http/context
-import app/app.{type App}
 import glimr/utils/unix_timestamp
-
-props(ctx: context.Context(App))
 ---
 
 <x-layouts:app>
@@ -1180,26 +1175,7 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
           tips for building with Glimr. No spam, unsubscribe anytime.
         </p>
 
-        <x-alert
-          variant="success"
-          l-if="session.has_flash(ctx.session, 'success.message')"
-        >
-          {{ session.get_flash(ctx.session, "success.message") }}
-        </x-alert>
-
-        <form class="max-w-md mx-auto" method="post" action="/newsletter">
-          <div class="mb-4">
-            <x-input
-              label="Email Address"
-              name="email"
-              id="email"
-              placeholder="you@example.com"
-              :session="ctx.session"
-            />
-          </div>
-
-          <x-button type="submit" class="w-full">Subscribe</x-button>
-        </form>
+        <x-signup_form />
       </div>
     </x-container>
   </section>
