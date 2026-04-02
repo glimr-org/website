@@ -9,22 +9,15 @@
 ////
 
 import app/http/controllers/home_controller
-import app/http/controllers/newsletter_controller
-import gleam/http.{Get, Post}
+import gleam/http.{Get}
 import glimr/response/response
 
-pub fn routes(path, method, ctx) {
+pub fn routes(path, method, _ctx) {
   case path {
     [] ->
       case method {
         Get -> home_controller.show()
         _ -> response.method_not_allowed([Get])
-      }
-
-    ["newsletter"] ->
-      case method {
-        Post -> newsletter_controller.store(ctx)
-        _ -> response.method_not_allowed([Post])
       }
 
     _ -> response.not_found()
