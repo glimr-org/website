@@ -7,62 +7,65 @@
 ////
 
 import gleam/string
+import gleam/string_tree.{type StringTree}
 import glimr/loom/runtime
 
 pub fn render(
   language language: String,
   filename filename: String,
   borderless borderless: Bool,
-  slot slot: String,
+  slot slot: StringTree,
   attributes attributes: List(runtime.Attribute),
-) -> String {
-  ""
-  <> "<div"
-  <> " "
-  <> runtime.render_attributes(runtime.merge_attributes(
-    [
-      runtime.Attribute(
-        "class",
-        runtime.build_classes([
-          runtime.class("overflow-hidden"),
-          runtime.class(case borderless {
-            True -> ""
-            _ -> "rounded-xl border border-slate-200"
-          }),
-        ]),
-      ),
-    ],
-    attributes,
-  ))
-  <> ">"
-  <> "\n  "
-  <> case !string.is_empty(filename) {
-    True -> {
-      ""
-      <> "<div"
-      <> " "
-      <> runtime.render_attributes([
-        runtime.Attribute(
-          "class",
-          "flex bg-slate-100 border-b border-slate-200",
-        ),
-      ])
-      <> ">"
-      <> "\n    <span class=\"bg-slate-50 px-4 py-2 text-[12.5px] font-mono font-light text-[#4c4f69]\">\n      "
-      <> runtime.display(filename)
-      <> "\n    </span>\n  "
-      <> "</div>"
-    }
-    False -> ""
-  }
-  <> "\n  <pre\n    class=\"bg-slate-50 text-[#4c4f69] p-4 sm:p-5 text-[12px] sm:text-[13.5px] leading-relaxed overflow-x-auto font-mono font-light min-h-[200px] sm:min-h-[340px]\"\n  >"
-  <> "<code"
-  <> " "
-  <> runtime.render_attributes([runtime.Attribute("data-lang", language)])
-  <> ">"
-  <> slot
-  <> "</code>"
-  <> "</pre>\n"
-  <> "</div>"
-  <> "\n"
+) -> StringTree {
+  string_tree.concat([
+    string_tree.from_strings([
+      "<div",
+      " "
+        <> runtime.render_attributes(runtime.merge_attributes(
+        [
+          runtime.Attribute(
+            "class",
+            runtime.build_classes([
+              runtime.class("overflow-hidden"),
+              runtime.class(case borderless {
+                True -> ""
+                _ -> "rounded-xl border border-slate-200"
+              }),
+            ]),
+          ),
+        ],
+        attributes,
+      )),
+      ">",
+      "\n  ",
+    ]),
+    case !string.is_empty(filename) {
+      True ->
+        string_tree.from_strings([
+          "<div",
+          " "
+            <> runtime.render_attributes([
+            runtime.Attribute(
+              "class",
+              "flex bg-slate-100 border-b border-slate-200",
+            ),
+          ]),
+          ">",
+          "\n    <span class=\"bg-slate-50 px-4 py-2 text-[12.5px] font-mono font-light text-[#4c4f69]\">\n      ",
+          runtime.escape(filename),
+          "\n    </span>\n  ",
+          "</div>",
+        ])
+      False -> string_tree.new()
+    },
+    string_tree.from_strings([
+      "\n  <pre\n    class=\"bg-slate-50 text-[#4c4f69] p-4 sm:p-5 text-[12px] sm:text-[13.5px] leading-relaxed overflow-x-auto font-mono font-light min-h-[200px] sm:min-h-[340px]\"\n  >",
+      "<code",
+      " "
+        <> runtime.render_attributes([runtime.Attribute("data-lang", language)]),
+      ">",
+    ]),
+    slot,
+    string_tree.from_strings(["</code>", "</pre>\n", "</div>", "\n"]),
+  ])
 }

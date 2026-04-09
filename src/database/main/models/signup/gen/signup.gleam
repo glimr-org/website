@@ -5,6 +5,8 @@
 import gleam/dynamic/decode
 import gleam/json
 import glimr/db/db
+import glimr/http/http.{type Response}
+import glimr/response/response
 
 pub type Signup {
   Signup(id: Int, email: String, created_at: Int, updated_at: Int)
@@ -78,13 +80,15 @@ pub fn create_or_fail(
   email email: String,
   created_at created_at: Int,
   updated_at updated_at: Int,
-) -> Signup {
+  then then: fn(Signup) -> Response,
+) -> Response {
   use connection <- db.get_connection(pool)
   create_or_fail_wc(
     connection: connection,
     email: email,
     created_at: created_at,
     updated_at: updated_at,
+    then: then,
   )
 }
 
@@ -93,14 +97,22 @@ pub fn create_or_fail_wc(
   email email: String,
   created_at created_at: Int,
   updated_at updated_at: Int,
-) -> Signup {
-  create_wc(
-    connection: connection,
-    email: email,
-    created_at: created_at,
-    updated_at: updated_at,
-  )
-  |> db.expect
+  then then: fn(Signup) -> Response,
+) -> Response {
+  case
+    create_wc(
+      connection: connection,
+      email: email,
+      created_at: created_at,
+      updated_at: updated_at,
+    )
+  {
+    Ok(value) -> then(value)
+    Error(db.NotFound) -> response.not_found()
+    Error(db.ConnectionError(_)) -> response.empty(503)
+    Error(db.TimeoutError) -> response.empty(503)
+    Error(_) -> response.internal_server_error()
+  }
 }
 
 pub fn delete(pool pool: db.DbPool, id id: Int) -> Result(Int, db.DbError) {
@@ -115,17 +127,26 @@ pub fn delete_wc(
   db.exec_with(connection, "DELETE FROM signups WHERE id = $1", [db.int(id)])
 }
 
-pub fn delete_or_fail(pool pool: db.DbPool, id id: Int) -> Int {
+pub fn delete_or_fail(
+  pool pool: db.DbPool,
+  id id: Int,
+  then then: fn(Int) -> Response,
+) -> Response {
   use connection <- db.get_connection(pool)
-  delete_or_fail_wc(connection: connection, id: id)
+  delete_or_fail_wc(connection: connection, id: id, then: then)
 }
 
 pub fn delete_or_fail_wc(
   connection connection: db.Connection,
   id id: Int,
-) -> Int {
-  delete_wc(connection: connection, id: id)
-  |> db.expect
+  then then: fn(Int) -> Response,
+) -> Response {
+  case delete_wc(connection: connection, id: id) {
+    Ok(count) -> then(count)
+    Error(db.ConnectionError(_)) -> response.empty(503)
+    Error(db.TimeoutError) -> response.empty(503)
+    Error(_) -> response.internal_server_error()
+  }
 }
 
 pub fn find(pool pool: db.DbPool, id id: Int) -> Result(Signup, db.DbError) {
@@ -152,17 +173,27 @@ pub fn find_wc(
   }
 }
 
-pub fn find_or_fail(pool pool: db.DbPool, id id: Int) -> Signup {
+pub fn find_or_fail(
+  pool pool: db.DbPool,
+  id id: Int,
+  then then: fn(Signup) -> Response,
+) -> Response {
   use connection <- db.get_connection(pool)
-  find_or_fail_wc(connection: connection, id: id)
+  find_or_fail_wc(connection: connection, id: id, then: then)
 }
 
 pub fn find_or_fail_wc(
   connection connection: db.Connection,
   id id: Int,
-) -> Signup {
-  find_wc(connection: connection, id: id)
-  |> db.expect
+  then then: fn(Signup) -> Response,
+) -> Response {
+  case find_wc(connection: connection, id: id) {
+    Ok(value) -> then(value)
+    Error(db.NotFound) -> response.not_found()
+    Error(db.ConnectionError(_)) -> response.empty(503)
+    Error(db.TimeoutError) -> response.empty(503)
+    Error(_) -> response.internal_server_error()
+  }
 }
 
 pub fn list(pool pool: db.DbPool) -> Result(List(Signup), db.DbError) {
@@ -186,14 +217,24 @@ pub fn list_wc(
   }
 }
 
-pub fn list_or_fail(pool pool: db.DbPool) -> List(Signup) {
+pub fn list_or_fail(
+  pool pool: db.DbPool,
+  then then: fn(List(Signup)) -> Response,
+) -> Response {
   use connection <- db.get_connection(pool)
-  list_or_fail_wc(connection: connection)
+  list_or_fail_wc(connection: connection, then: then)
 }
 
-pub fn list_or_fail_wc(connection connection: db.Connection) -> List(Signup) {
-  list_wc(connection: connection)
-  |> db.expect
+pub fn list_or_fail_wc(
+  connection connection: db.Connection,
+  then then: fn(List(Signup)) -> Response,
+) -> Response {
+  case list_wc(connection: connection) {
+    Ok(value) -> then(value)
+    Error(db.ConnectionError(_)) -> response.empty(503)
+    Error(db.TimeoutError) -> response.empty(503)
+    Error(_) -> response.internal_server_error()
+  }
 }
 
 pub fn update(
@@ -232,9 +273,16 @@ pub fn update_or_fail(
   id id: Int,
   email email: String,
   p3 p3: String,
-) -> Signup {
+  then then: fn(Signup) -> Response,
+) -> Response {
   use connection <- db.get_connection(pool)
-  update_or_fail_wc(connection: connection, id: id, email: email, p3: p3)
+  update_or_fail_wc(
+    connection: connection,
+    id: id,
+    email: email,
+    p3: p3,
+    then: then,
+  )
 }
 
 pub fn update_or_fail_wc(
@@ -242,7 +290,13 @@ pub fn update_or_fail_wc(
   id id: Int,
   email email: String,
   p3 p3: String,
-) -> Signup {
-  update_wc(connection: connection, id: id, email: email, p3: p3)
-  |> db.expect
+  then then: fn(Signup) -> Response,
+) -> Response {
+  case update_wc(connection: connection, id: id, email: email, p3: p3) {
+    Ok(value) -> then(value)
+    Error(db.NotFound) -> response.not_found()
+    Error(db.ConnectionError(_)) -> response.empty(503)
+    Error(db.TimeoutError) -> response.empty(503)
+    Error(_) -> response.internal_server_error()
+  }
 }

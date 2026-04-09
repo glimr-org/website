@@ -6,20 +6,24 @@
 //// loom:compile`.
 ////
 
+import gleam/string_tree.{type StringTree}
 import glimr/loom/runtime
 
 pub fn render(
-  slot slot: String,
+  slot slot: StringTree,
   attributes attributes: List(runtime.Attribute),
-) -> String {
-  ""
-  <> "<div "
-  <> " "
-  <> runtime.render_attributes(runtime.merge_attributes(
-    [runtime.Attribute("class", "max-w-282.5 px-5 mx-auto")],
-    attributes,
-  ))
-  <> ">\n  "
-  <> slot
-  <> "\n</div>\n"
+) -> StringTree {
+  string_tree.concat([
+    string_tree.from_strings([
+      "<div ",
+      " "
+        <> runtime.render_attributes(runtime.merge_attributes(
+        [runtime.Attribute("class", "max-w-282.5 px-5 mx-auto")],
+        attributes,
+      )),
+      ">\n  ",
+    ]),
+    slot,
+    string_tree.from_strings(["\n</div>\n"]),
+  ])
 }

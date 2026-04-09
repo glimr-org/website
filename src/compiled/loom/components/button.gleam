@@ -7,90 +7,96 @@
 ////
 
 import gleam/string
+import gleam/string_tree.{type StringTree}
 import glimr/loom/runtime
 
 pub fn render(
   variant variant: String,
   href href: String,
   size size: String,
-  slot slot: String,
+  slot slot: StringTree,
   attributes attributes: List(runtime.Attribute),
-) -> String {
-  ""
-  <> "\n<!-- if no href is present, then use a regular button-->\n"
-  <> case string.is_empty(href) {
-    True -> {
-      ""
-      <> "<button"
-      <> " "
-      <> runtime.render_attributes(runtime.merge_attributes(
-        [
-          runtime.Attribute(
-            "class",
-            runtime.build_classes([
-              runtime.class(
-                "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block text-center",
-              ),
-              runtime.class(case size {
-                "sm" -> "py-2 px-4 text-[13.5px]"
-                "lg" -> "py-3 px-8 text-[17px]"
-                _ -> "py-2.5 px-6 text-[17px] sm:text-[16px]"
-              }),
-              runtime.class(case variant {
-                "secondary" ->
-                  "bg-mist-100 text-gray-700 hover:bg-mist-200 focus:ring-mist-400"
-                "danger" ->
-                  "bg-red-500 text-white hover:bg-red-600 focus:ring-red-500"
-                _ ->
-                  "bg-[#F9B1D8] hover:bg-[#FFC9E6] focus:ring-pink-100 font-semibold text-[#2C2E49] shadow-[0_2px_21px_#FFA9D4]"
-              }),
-            ]),
-          ),
-        ],
-        attributes,
-      ))
-      <> ">"
-      <> "\n  "
-      <> slot
-      <> "\n"
-      <> "</button>"
-    }
-    False -> {
-      ""
-      <> "<a"
-      <> " "
-      <> runtime.render_attributes(runtime.merge_attributes(
-        [
-          runtime.Attribute("href", href),
-          runtime.Attribute(
-            "class",
-            runtime.build_classes([
-              runtime.class(
-                "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block text-center",
-              ),
-              runtime.class(case size {
-                "sm" -> "py-2 px-4 text-[13.5px]"
-                "lg" -> "py-3 px-8 text-[17px]"
-                _ -> "py-2.5 px-6 text-[17px] sm:text-[16px]"
-              }),
-              runtime.class(case variant {
-                "secondary" ->
-                  "bg-slate-100 text-gray-700 hover:bg-slate-200 focus:ring-slate-400"
-                "danger" ->
-                  "bg-red-500 text-white hover:bg-red-600 focus:ring-red-500"
-                _ ->
-                  "bg-[#F9B1D8] hover:bg-[#FFC9E6] focus:ring-pink-300 font-semibold text-[#2C2E49] shadow-[0_2px_21px_#FFA9D4]"
-              }),
-            ]),
-          ),
-        ],
-        attributes,
-      ))
-      <> ">"
-      <> "\n  "
-      <> slot
-      <> "\n"
-      <> "</a>"
-    }
-  }
+) -> StringTree {
+  string_tree.concat([
+    string_tree.from_strings([
+      "\n<!-- if no href is present, then use a regular button-->\n",
+    ]),
+    case string.is_empty(href) {
+      True ->
+        string_tree.concat([
+          string_tree.from_strings([
+            "<button",
+            " "
+              <> runtime.render_attributes(runtime.merge_attributes(
+              [
+                runtime.Attribute(
+                  "class",
+                  runtime.build_classes([
+                    runtime.class(
+                      "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block text-center",
+                    ),
+                    runtime.class(case size {
+                      "sm" -> "py-2 px-4 text-[13.5px]"
+                      "lg" -> "py-3 px-8 text-[17px]"
+                      _ -> "py-2.5 px-6 text-[17px] sm:text-[16px]"
+                    }),
+                    runtime.class(case variant {
+                      "secondary" ->
+                        "bg-mist-100 text-gray-700 hover:bg-mist-200 focus:ring-mist-400"
+                      "danger" ->
+                        "bg-red-500 text-white hover:bg-red-600 focus:ring-red-500"
+                      _ ->
+                        "bg-[#F9B1D8] hover:bg-[#FFC9E6] focus:ring-pink-100 font-semibold text-[#2C2E49] shadow-[0_2px_21px_#FFA9D4]"
+                    }),
+                  ]),
+                ),
+              ],
+              attributes,
+            )),
+            ">",
+            "\n  ",
+          ]),
+          slot,
+          string_tree.from_strings(["\n", "</button>"]),
+        ])
+      False ->
+        string_tree.concat([
+          string_tree.from_strings([
+            "<a",
+            " "
+              <> runtime.render_attributes(runtime.merge_attributes(
+              [
+                runtime.Attribute("href", href),
+                runtime.Attribute(
+                  "class",
+                  runtime.build_classes([
+                    runtime.class(
+                      "font-medium rounded-[9px] cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 inline-block text-center",
+                    ),
+                    runtime.class(case size {
+                      "sm" -> "py-2 px-4 text-[13.5px]"
+                      "lg" -> "py-3 px-8 text-[17px]"
+                      _ -> "py-2.5 px-6 text-[17px] sm:text-[16px]"
+                    }),
+                    runtime.class(case variant {
+                      "secondary" ->
+                        "bg-slate-100 text-gray-700 hover:bg-slate-200 focus:ring-slate-400"
+                      "danger" ->
+                        "bg-red-500 text-white hover:bg-red-600 focus:ring-red-500"
+                      _ ->
+                        "bg-[#F9B1D8] hover:bg-[#FFC9E6] focus:ring-pink-300 font-semibold text-[#2C2E49] shadow-[0_2px_21px_#FFA9D4]"
+                    }),
+                  ]),
+                ),
+              ],
+              attributes,
+            )),
+            ">",
+            "\n  ",
+          ]),
+          slot,
+          string_tree.from_strings(["\n", "</a>"]),
+        ])
+    },
+  ])
 }

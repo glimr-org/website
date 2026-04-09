@@ -6,36 +6,38 @@
 //// loom:compile`.
 ////
 
+import gleam/string_tree.{type StringTree}
 import glimr/loom/runtime
 
 pub fn render(
   variant variant: String,
-  slot slot: String,
+  slot slot: StringTree,
   attributes attributes: List(runtime.Attribute),
-) -> String {
-  ""
-  <> "<div"
-  <> " "
-  <> runtime.render_attributes(runtime.merge_attributes(
-    [
-      runtime.Attribute(
-        "class",
-        runtime.build_classes([
-          runtime.class("p-[10px] mb-[20px] rounded-lg text-center border"),
-          runtime.class(case variant {
-            "success" -> "bg-green-50 text-green-700 border-green-200"
-            "danger" -> "bg-red-50 text-red-700 border-red-200"
-            _ -> "bg-blue-50 text-blue-700 border-blue-200"
-          }),
-        ]),
-      ),
-    ],
-    attributes,
-  ))
-  <> ">"
-  <> "\n  "
-  <> slot
-  <> "\n"
-  <> "</div>"
-  <> "\n"
+) -> StringTree {
+  string_tree.concat([
+    string_tree.from_strings([
+      "<div",
+      " "
+        <> runtime.render_attributes(runtime.merge_attributes(
+        [
+          runtime.Attribute(
+            "class",
+            runtime.build_classes([
+              runtime.class("p-[10px] mb-[20px] rounded-lg text-center border"),
+              runtime.class(case variant {
+                "success" -> "bg-green-50 text-green-700 border-green-200"
+                "danger" -> "bg-red-50 text-red-700 border-red-200"
+                _ -> "bg-blue-50 text-blue-700 border-blue-200"
+              }),
+            ]),
+          ),
+        ],
+        attributes,
+      )),
+      ">",
+      "\n  ",
+    ]),
+    slot,
+    string_tree.from_strings(["\n", "</div>", "\n"]),
+  ])
 }

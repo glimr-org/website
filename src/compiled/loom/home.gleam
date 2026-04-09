@@ -26,586 +26,706 @@ import compiled/loom/components/icons/update as components_icons_update
 import compiled/loom/components/layouts/app as components_layouts_app
 import compiled/loom/components/logo as components_logo
 import compiled/loom/components/signup_form as components_signup_form
+import gleam/string_tree.{type StringTree}
 import glimr/loom/runtime
 import glimr/utils/unix_timestamp
 
-pub fn render() -> String {
-  ""
-  <> components_layouts_app.render(
-    slot_meta_title: {
-      ""
-      <> "\n    Glimr - Build scalable web apps that LLM's can understand\n  "
-    },
-    slot_footer: "",
-    slot_footer_scripts: "",
-    slot_head: "",
-    slot: {
-      ""
-      <> "\n  "
-      <> "\n\n  <!-- Nav -->\n  <nav x-data=\"{ open: false }\">\n    "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n      <a href=\"/\" class=\"flex items-center gap-2.5\">\n        "
-          <> components_logo.render(attributes: [
-            runtime.Attribute("width", "26"),
-            runtime.Attribute("class", "fill-[#2B2E49] w-9 sm:w-6.5"),
-          ])
-          <> "\n        <span class=\"text-[17px] font-semibold text-[#2B2E49] hidden sm:inline\"\n          >Glimr</span>\n      </a>\n\n      <!-- Desktop links -->\n      <div\n        class=\"hidden sm:flex items-center gap-6 text-[14.5px] font-medium text-[#2C2E49] nav\"\n      >\n        <a\n          href=\"https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Docs\n        </a>\n        <a\n          href=\"https://github.com/glimr-org/glimr\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Github\n        </a>\n        <a\n          href=\"https://hexdocs.pm/glimr\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Hex\n        </a>\n      </div>\n\n      <!-- Mobile hamburger -->\n      <button\n        x-on:click=\"open = !open\"\n        class=\"sm:hidden p-1 text-[#2C2E49]\"\n        aria-label=\"Toggle menu\"\n      >\n        <svg\n          x-show=\"!open\"\n          width=\"24\"\n          height=\"24\"\n          viewBox=\"0 0 15 15\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path\n            d=\"M1.5 3C1.22386 3 1 3.22386 1 3.5C1 3.77614 1.22386 4 1.5 4H13.5C13.7761 4 14 3.77614 14 3.5C14 3.22386 13.7761 3 13.5 3H1.5ZM1 7.5C1 7.22386 1.22386 7 1.5 7H13.5C13.7761 7 14 7.22386 14 7.5C14 7.77614 13.7761 8 13.5 8H1.5C1.22386 8 1 7.77614 1 7.5ZM1 11.5C1 11.2239 1.22386 11 1.5 11H13.5C13.7761 11 14 11.2239 14 11.5C14 11.7761 13.7761 12 13.5 12H1.5C1.22386 12 1 11.7761 1 11.5Z\"\n            fill=\"currentColor\"\n            fill-rule=\"evenodd\"\n            clip-rule=\"evenodd\"\n          />\n        </svg>\n        <svg\n          x-show=\"open\"\n          x-cloak\n          width=\"24\"\n          height=\"24\"\n          viewBox=\"0 0 15 15\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path\n            d=\"M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z\"\n            fill=\"currentColor\"\n            fill-rule=\"evenodd\"\n            clip-rule=\"evenodd\"\n          />\n        </svg>\n      </button>\n    "
-        },
-        attributes: [
-          runtime.Attribute(
-            "class",
-            "pt-5 pb-3 flex items-center justify-between",
-          ),
-        ],
-      )
-      <> "\n\n    <!-- Mobile menu -->\n    <div\n      x-show=\"open\"\n      x-cloak\n      x-transition:enter=\"transition ease-out duration-150\"\n      x-transition:enter-start=\"opacity-0 -translate-y-2\"\n      x-transition:enter-end=\"opacity-100 translate-y-0\"\n      x-transition:leave=\"transition ease-in duration-100\"\n      x-transition:leave-start=\"opacity-100 translate-y-0\"\n      x-transition:leave-end=\"opacity-0 -translate-y-2\"\n      class=\"sm:hidden border-t border-slate-100\"\n    >\n      "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n        <a\n          href=\"https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-\"\n          target=\"_blank\"\n          rel=\"nofollow\"\n        >\n          Docs\n        </a>\n        <a\n          href=\"https://github.com/glimr-org/glimr\"\n          target=\"_blank\"\n          rel=\"nofollow\"\n        >\n          Github\n        </a>\n        <a href=\"https://hexdocs.pm/glimr\" target=\"_blank\" rel=\"nofollow\">\n          Hex\n        </a>\n      "
-        },
-        attributes: [
-          runtime.Attribute(
-            "class",
-            "py-4 flex flex-col gap-3 text-[16px] md:text-[15px] font-medium text-[#2C2E49]",
-          ),
-        ],
-      )
-      <> "\n    </div>\n  </nav>\n\n  <!-- Hero -->\n  <section class=\"relative overflow-hidden\">\n    "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n      <!-- Left content -->\n      <div class=\"flex-1 sm:max-w-sm\">\n        <span\n          class=\"inline-block text-[13px] font-semibold text-[#FF43A1] mb-5 bg-[#FFEEF7] rounded-[9px] px-2.5 pb-px\"\n        >\n          v1.0.0\n        </span>\n\n        <h1\n          class=\"text-[34px] sm:text-[33px] leading-[1.07] font-semibold mb-8\"\n        >\n          Build scalable web apps that LLM's can understand and you can trust.\n        </h1>\n\n        <p class=\"text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm\">\n          Gleam's type safety and functional core, plus Glimr's opinionated\n          design mean fewer bugs, confident refactoring, and AI that actually\n          writes correct code.\n        </p>\n\n        <div\n          class=\"flex flex-col sm:flex-row gap-3 items-start sm:items-center\"\n        >\n          "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
-            variant: "",
-            size: "",
-            slot: { "" <> "\n            Explore Docs\n          " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("class", "w-full sm:w-auto"),
-            ],
-          )
-          <> "\n\n          "
-          <> components_button.render(
-            href: "#newsletter",
-            variant: "secondary",
-            size: "",
-            slot: { "" <> "\n            Join Newsletter\n          " },
-            attributes: [
-              runtime.Attribute("href", "#newsletter"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("l-no-nav", "l-no-nav"),
-              runtime.Attribute("class", "w-full sm:w-auto"),
-            ],
-          )
-          <> "\n        </div>\n      </div>\n\n      <!-- Right illustration (desktop) -->\n      <div class=\"flex-1 hidden lg:flex justify-center items-center\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n\n      <!-- Illustration (mobile) -->\n      <div class=\"sm:hidden mt-15 relative w-150 right-22.5\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n    "
-        },
-        attributes: [
-          runtime.Attribute(
-            "class",
-            "pt-10 lg:pt-15 pb-7.5 flex flex-col lg:flex-row items-start",
-          ),
-        ],
-      )
-      <> "\n  </section>\n\n  <!-- Code Showcase -->\n  <section>\n    "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n      <div class=\"text-center mb-14\">\n        <span\n          class=\"font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block\"\n          >Beautiful Code</span>\n\n        <h2\n          class=\"text-[28px] sm:text-[30px] font-semibold mb-4 leading-[1.07] max-w-2xl mx-auto\"\n        >\n          A delightful coding experience.\n        </h2>\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto\"\n        >\n          Clean, expressive, and intentional by default. Glimr helps you write\n          code you're happy to come back to whether you're a team of 1 or 100.\n        </p>\n      </div>\n      <div\n        x-data=\"{ tab: 'routing' }\"\n        class=\"flex flex-col lg:flex-row gap-8 items-start\"\n      >\n        <!-- Left: Tabs + Code -->\n        <div class=\"flex-1 min-w-0 w-full\">\n          <!-- Tabs -->\n          <div class=\"flex gap-1 mb-3 overflow-x-auto pb-1\">\n            <button\n              x-on:click=\"tab = 'routing'\"\n              x-bind:class=\"tab === 'routing' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Routing\n            </button>\n            <button\n              x-on:click=\"tab = 'middleware'\"\n              x-bind:class=\"tab === 'middleware' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Middleware\n            </button>\n            <button\n              x-on:click=\"tab = 'liveviews'\"\n              x-bind:class=\"tab === 'liveviews' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Live Views\n            </button>\n            <button\n              x-on:click=\"tab = 'validation'\"\n              x-bind:class=\"tab === 'validation' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Validation\n            </button>\n            <button\n              x-on:click=\"tab = 'migrations'\"\n              x-bind:class=\"tab === 'migrations' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Migrations\n            </button>\n            <button\n              x-on:click=\"tab = 'queries'\"\n              x-bind:class=\"tab === 'queries' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Queries\n            </button>\n            <button\n              x-on:click=\"tab = 'auth'\"\n              x-bind:class=\"tab === 'auth' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Auth\n            </button>\n            <button\n              x-on:click=\"tab = 'cache'\"\n              x-bind:class=\"tab === 'cache' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Cache\n            </button>\n          </div>\n\n          <!-- Code block (fixed height) -->\n          <div>\n            <!-- Routing: single file -->\n            <!-- prettier-ignore -->\n            <div x-show=\"tab === 'routing'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            filename: "user_controller.gleam",
-            borderless: False,
-            slot: {
-              ""
-              <> "/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  let users = user.list_or_fail(ctx.app.db)\n\n  response.html(user_index.render(users: users), 200)\n}\n\n/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  let user = user.find_or_fail(ctx.app.db, user_id)\n\n  response.html(user_show.render(user: user), 200)\n}"
-            },
-            attributes: [
-              runtime.Attribute("language", "gleam"),
-              runtime.Attribute("filename", "user_controller.gleam"),
-            ],
-          )
-          <> "\n            </div>\n\n            <!-- Middleware: multi-file -->\n            <div x-show=\"tab === 'middleware'\" x-data=\"{ file: 'middleware' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'middleware'\"\n                    x-bind:class=\"file === 'middleware' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    logger.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'middleware'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "import app/app.{type App}\nimport glimr/http/context.{type Context}\nimport glimr/http/http.{type Response}\nimport glimr/http/kernel.{type Next}\n\npub fn run(ctx: Context(App), next: Next(App)) -&gt; Response {\n  io.println(\"Request: \" &lt;&gt; ctx.req.path)\n\n  // Pass context to next middleware/handler\n  next(ctx)\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "import app/http/middleware/logger\nimport glimr/http/middleware\n\n/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  use ctx &lt;- middleware.apply([logger.run], ctx)\n\n  let users = user.list_or_fail(ctx.app.db)\n  response.html(user_index.render(users: users), 200)\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n              </div>\n            </div>\n\n            <!-- Templates: multi-file -->\n            <div x-show=\"tab === 'liveviews'\" x-data=\"{ file: 'template' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'template'\"\n                    x-bind:class=\"file === 'template' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    counter.loom.html\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    counter_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'template'\">\n"
-          <> components_code.render(
-            language: "html",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "---\nprops(count: Int)\n---\n\n&lt;div class=\"text-center\"&gt;\n  &lt;p class=\"text-2xl mb-4\"&gt;Count: {{ count }}&lt;/p&gt;\n\n  &lt;button l-on:click=\"count = count - 1\"&gt;-&lt;/button&gt;\n  &lt;button l-on:click=\"count = count + 1\"&gt;+&lt;/button&gt;\n&lt;/div&gt;\n\n&lt;!-- Two-way binding --&gt;\n&lt;input l-model=\"name\" /&gt;\n&lt;p&gt;Hello, {{ name }}!&lt;/p&gt;"
-            },
-            attributes: [runtime.Attribute("language", "html")],
-          )
-          <> "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "import compiled/loom/counter\n\n/// @get \"/counter\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  response.html(counter.render(count: 0), 200)\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n              </div>\n            </div>\n\n            <!-- Validation: multi-file -->\n            <div x-show=\"tab === 'validation'\" x-data=\"{ file: 'validator' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'validator'\"\n                    x-bind:class=\"file === 'validator' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_store.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'validator'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "/// Define the shape of the data returned after validation\npub type Data {\n  Data(\n    name: String,\n    email: String,\n  )\n}\n\n/// Define your form's validation rules\nfn rules(_ctx: Context(App)) -&gt; List(Rule) {\n  [\n    v.for(\"name\", [v.Required, v.MinLength(2)]),\n    v.for(\"email\", [v.Required, v.Email, v.MaxLength(255)]),\n  ]\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "/// @post \"/users\"\npub fn store(ctx: Context(App)) -&gt; Response {\n  use data &lt;- user_store.validate(ctx)\n\n  let user = user.create(\n    pool: ctx.app.db, \n    name: data.name, \n    email: data.email\n  )\n\n  redirect.to(\"/users/\" &lt;&gt; user.id)\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n              </div>\n            </div>\n\n            <!-- Migrations: multi-file -->\n            <div x-show=\"tab === 'migrations'\" x-data=\"{ file: 'schema' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'schema'\"\n                    x-bind:class=\"file === 'schema' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_schema.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'migration'\"\n                    x-bind:class=\"file === 'migration' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    generated migration\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'schema'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "pub const table_name = \"users\"\n\npub fn definition() {\n  schema.table(table_name, [\n    schema.id(),\n    schema.string(\"email\"),\n    schema.string(\"name\") |> schema.nullable(),\n    schema.boolean(\"is_admin\") |> schema.default_bool(False),\n    schema.unix_timestamps(),\n  ])\n  |> schema.indexes([\n    schema.unique([\"email\"]),\n  ])\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'migration'\">\n"
-          <> components_code.render(
-            language: "sql",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "-- Auto-generated by ./glimr db_gen\n\nCREATE TABLE users (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  email TEXT NOT NULL,\n  name TEXT,\n  is_admin INTEGER NOT NULL DEFAULT 0,\n  created_at INTEGER NOT NULL,\n  updated_at INTEGER NOT NULL\n);\n\nCREATE UNIQUE INDEX idx_users_email\n  ON users (email);"
-            },
-            attributes: [runtime.Attribute("language", "sql")],
-          )
-          <> "\n                </div>\n              </div>\n            </div>\n\n            <!-- Queries: multi-file -->\n            <div x-show=\"tab === 'queries'\" x-data=\"{ file: 'find' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'find'\"\n                    x-bind:class=\"file === 'find' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    find.sql\n                  </button>\n                  <button\n                    x-on:click=\"file = 'list'\"\n                    x-bind:class=\"file === 'list' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    list_active.sql\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'find'\">\n"
-          <> components_code.render(
-            language: "sql",
-            borderless: True,
-            filename: "",
-            slot: {
-              "" <> "-- queries/find.sql\nSELECT *\nFROM users\nWHERE id = $1;"
-            },
-            attributes: [runtime.Attribute("language", "sql")],
-          )
-          <> "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'list'\">\n"
-          <> components_code.render(
-            language: "sql",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "-- queries/list_active.sql\nSELECT *\nFROM users\nWHERE is_active = true\nORDER BY created_at DESC;"
-            },
-            attributes: [runtime.Attribute("language", "sql")],
-          )
-          <> "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  let user = user.find_or_fail(ctx.app.db, user_id)\n\n  response.html(user_show.render(user: user), 200)\n}\n\n/// @get \"/users/active\"\npub fn active(ctx: Context(App)) -&gt; Response {\n  let users = user.list_active_or_fail(ctx.app.db)\n\n  response.html(user_index.render(users: users), 200)\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n              </div>\n            </div>\n\n            <!-- Auth: multi-file -->\n            <div x-show=\"tab === 'auth'\" x-data=\"{ file: 'controller' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    dashboard_controller.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'view'\"\n                    x-bind:class=\"file === 'view' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    dashboard.loom.html\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "/// @get \"/dashboard\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  // Ensure only authenticated ones reach this route\n  use ctx &lt;- middleware.apply([auth_user], ctx)\n\n  // Get the authenticated user from our context\n  let assert option.Some(user) = ctx.app.user\n\n  // Pass the authenticated user to your view\n  response.html(dashboard.render(user: user), 200)\n}"
-            },
-            attributes: [runtime.Attribute("language", "gleam")],
-          )
-          <> "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'view'\">\n"
-          <> components_code.render(
-            language: "html",
-            borderless: True,
-            filename: "",
-            slot: {
-              ""
-              <> "---\nimport database/main/models/user/gen/user.{type User}\n\nprops(user: User) \n---\n\n&lt;x-layouts:app&gt;\n  &lt;div class=\"max-w-2xl mx-auto py-12\"&gt;\n    &lt;h1 class=\"text-2xl font-bold\"&gt;\n      Welcome back, {{ user.name }}\n    &lt;/h1&gt;\n\n    &lt;p class=\"mt-2\"&gt;{{ user.email }}&lt;/p&gt;\n  &lt;/div&gt;\n&lt;/x-layouts:app&gt;"
-            },
-            attributes: [runtime.Attribute("language", "html")],
-          )
-          <> "\n                </div>\n              </div>\n            </div>\n\n            <!-- Cache: single file -->\n            <!-- prettier-ignore -->\n            <div x-show=\"tab === 'cache'\">\n"
-          <> components_code.render(
-            language: "gleam",
-            filename: "user_controller.gleam",
-            borderless: False,
-            slot: {
-              ""
-              <> "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  // Fetch from cache, or query DB on miss\n  let user = {\n    use &lt;- cache.remember_json(\n      ctx.app.cache,\n      \"user:\" &lt;&gt; int.to_string(user_id),\n      3600,\n      user.decoder(),\n      user.encoder(),\n    )\n\n    user.find_or_fail(ctx.app.db, user_id)\n  }\n\n  response.html(user_show.render(user: user), 200)\n}"
-            },
-            attributes: [
-              runtime.Attribute("language", "gleam"),
-              runtime.Attribute("filename", "user_controller.gleam"),
-            ],
-          )
-          <> "\n            </div>\n          </div>\n        </div>\n\n        <!-- Right: Heading + Description -->\n        <div class=\"w-full lg:w-95 shrink-0 lg:pt-14\">\n          <div x-show=\"tab === 'routing'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_rocket.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">\n              Annotation-based routing\n            </h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Define routes with simple annotations in your controllers. Glimr\n              compiles them into a pattern-matched router, not a runtime lookup\n              table. The result is extremely fast routing with zero overhead.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Apply middleware at the controller or route level. Routes\n              recompile automatically when you save, so there's no manual step\n              between writing a handler and testing it.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#defining-routes",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#defining-routes",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n\n          <div x-show=\"tab === 'middleware'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_layers.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">\n              Composable middleware\n            </h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Intercept requests before they reach your controllers. Modify\n              context, check auth, log requests, rate limit, or run any custom\n              logic.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Apply per-route with the\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >use</span>\n              syntax, or per-controller with a\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >middleware()</span>\n              function. Changes to context flow through to all downstream\n              handlers.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#middleware",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#middleware",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n\n          <div x-show=\"tab === 'liveviews'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_lightning_bolt.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Reactive templates</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Loom templates compile to type-safe Gleam. Inspired by Pheonix\n              LiveView, add event handlers and they become reactive over\n              WebSockets. No JavaScript required.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              All state lives on the server. Interactions trigger a minimal diff\n              that patches only what changed. Built-in SPA navigation, two-way\n              binding, loading states, and components with slots.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#loom-template-engine",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#loom-template-engine",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n\n          <div x-show=\"tab === 'validation'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_check.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">\n              Declarative validation\n            </h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Define rules declaratively and get back a typed struct, not a bag\n              of strings. Validation errors are handled automatically: flashed\n              to the session for HTML routes, returned as JSON for APIs.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              The\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >use</span>\n              syntax short-circuits on failure, so your controller only runs\n              when data is valid. Transform and sanitize inputs in one place\n              before they reach your business logic.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#form-validation",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#form-validation",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n\n          <div x-show=\"tab === 'migrations'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_stack.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Automatic migrations</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Define your schema in Gleam with a fluent, type-safe API. Glimr\n              compares it against a stored snapshot, detects changes, and\n              generates driver-specific SQL migrations automatically. Just run\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >./glimr db_gen</span>\n              and you're done.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#migrations",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#migrations",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n\n          <div x-show=\"tab === 'queries'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_reader.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">SQL over ORM</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Write real SQL in plain <span class=\"font-medium\">.sql</span>\n              files. Glimr automatically generates fully typed Gleam repository\n              functions you can use directly in your controllers. No ORM magic,\n              no query builders, just write plain SQL like God intended.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Need multiple databases? Glimr supports multiple connections out\n              of the box. SQLite, PostgreSQL, or both. Each with its own models,\n              migrations, and generated repositories.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#queries",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#queries",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n\n          <div x-show=\"tab === 'cache'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_timer.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Caching</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Built-in caching with file, Redis, SQLite, and PostgreSQL stores.\n              The\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >remember</span>\n              pattern fetches from cache or computes on miss in a single\n              expression.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Cache strings, JSON, or structured data with auto-generated\n              encoders and decoders. Supports TTL, increment/decrement for rate\n              limiting, and flush operations.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#cache",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#cache",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n\n          <div x-show=\"tab === 'auth'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              "
-          <> components_icons_lock.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Built-in auth</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Run\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >./glimr make_auth user</span>\n              and get a complete auth stack: model, migrations, login/register\n              controllers, validators, middleware, and Loom views. All\n              generated, all type-safe.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Need separate auth for admins and users? Use scoped mode for fully\n              independent auth stacks with their own middleware, sessions, and\n              routes.\n            </p>\n            "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#authentication",
-            variant: "secondary",
-            size: "sm",
-            slot: { "" <> "\n              Learn more\n            " },
-            attributes: [
-              runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#authentication",
-              ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-              runtime.Attribute("size", "sm"),
-            ],
-          )
-          <> "\n          </div>\n        </div>\n      </div>\n    "
-        },
-        attributes: [runtime.Attribute("class", "pt-10 pb-17.5")],
-      )
-      <> "\n  </section>\n\n  <!-- LLM Section -->\n  <section>\n    "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n      <div class=\"text-center mb-12\">\n        <span\n          class=\"font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block\"\n          >Truly AI-ready</span>\n\n        <h2\n          class=\"text-[28px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto\"\n        >\n          Other frameworks claim to be a good fit for AI agents, here's why\n          Glimr\n          <span class=\"text-[#FF43A1]\">actually</span> is.\n        </h2>\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto\"\n        >\n          Most frameworks were designed before LLM agents wrote code. Gleam and\n          Glimr have the constraints that make an agent-driven workflow actually\n          reliable.\n        </p>\n      </div>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-10\">\n        <!-- Tight feedback loop -->\n        <div class=\"bg-slate-50 rounded-xl p-7\">\n          <div\n            class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n          >\n            "
-          <> components_icons_update.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n          </div>\n          <h3 class=\"text-[18px] font-semibold mb-2 text-[#2c2e49]\">\n            Tight feedback loop\n          </h3>\n          <p class=\"text-[16px] md:text-[15px] text-[#747687]\">\n            Gleam's strict type system and compiler catch errors instantly. When\n            an LLM generates wrong code, it gets precise error messages it can\n            act on, not silent failures that surface in production.\n          </p>\n        </div>\n\n        <!-- No hidden magic -->\n        <div class=\"bg-slate-50 rounded-xl p-7\">\n          <div\n            class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n          >\n            "
-          <> components_icons_eye.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n          </div>\n          <h3 class=\"text-[18px] font-semibold mb-2 text-[#2c2e49]\">\n            Functional over OOP\n          </h3>\n          <p class=\"text-[16px] md:text-[15px] text-[#747687]\">\n            Gleam is a functional language, meaning no inheritance, no\n            decorators, no implicit behavior. Everything in Gleam is explicit\n            and in the code. An LLM doesn't need context it can't see.\n          </p>\n        </div>\n\n        <!-- One way to do things -->\n        <div class=\"bg-slate-50 rounded-xl p-7\">\n          <div\n            class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n          >\n            "
-          <> components_icons_cube.render(attributes: [
-            runtime.Attribute("width", "18"),
-            runtime.Attribute("class", "text-[#FF43A1]"),
-          ])
-          <> "\n          </div>\n          <h3 class=\"text-[18px] font-semibold mb-2 text-[#2c2e49]\">\n            Convention over configuration\n          </h3>\n          <p class=\"text-[16px] md:text-[15px] text-[#747687]\">\n            Glimr's opinionated conventions mean the LLM doesn't have to choose\n            between ORMs, routers, or project structures. There's one proven\n            path, and it's well-documented.\n          </p>\n        </div>\n      </div>\n\n      <p\n        class=\"mt-17.5 text-center text-[22px] max-w-3xl mx-auto font-light text-[#2c2e49]\"\n      >\n        <span class=\"bg-[#fde6f1] pl-0.75 rounded-xs\"\n          >Frameworks like Laravel and Rails pioneered convention over\n          configuration, but they're built on dynamic, object-oriented\n          languages.</span>\n        An LLM can generate code that looks right, passes linting, and breaks in\n        production. Gleam's compiler won't let that happen. Functions take data\n        in and return data out. Conventions tell the LLM <em>what</em> to write.\n        The type system tells it <em>what it got wrong</em>.\n      </p>\n    "
-        },
-        attributes: [runtime.Attribute("class", "pt-10 pb-22.5")],
-      )
-      <> "\n  </section>\n\n  <!-- Features -->\n  <section class=\"bg-slate-50\">\n    "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n      <div class=\"text-center mb-12\">\n        <span\n          class=\"font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block\"\n          >Batteries included</span>\n\n        <h2\n          class=\"text-[28px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto\"\n        >\n          Ship with confidence, not dependencies.\n        </h2>\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto\"\n        >\n          Glimr is still young, but comes with a lot out of the box. Routing,\n          auth, validation, caching, and more. No need to assemble a stack from\n          scattered packages.\n        </p>\n      </div>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-x-20 gap-y-8.75\">\n        <!-- Middleware -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_layers.render(attributes: [
-            runtime.Attribute("width", "19"),
+pub fn render() -> StringTree {
+  string_tree.concat([
+    components_layouts_app.render(
+      slot_meta_title: string_tree.from_strings([
+        "\n    Glimr - Build scalable web apps that LLM's can understand\n  ",
+      ]),
+      slot_footer: string_tree.new(),
+      slot_footer_scripts: string_tree.new(),
+      slot_head: string_tree.new(),
+      slot: string_tree.concat([
+        string_tree.from_strings([
+          "\n  ",
+          "\n\n  <!-- Nav -->\n  <nav x-data=\"{ open: false }\">\n    ",
+        ]),
+        components_container.render(
+          slot: string_tree.concat([
+            string_tree.from_strings([
+              "\n      <a href=\"/\" class=\"flex items-center gap-2.5\">\n        ",
+            ]),
+            components_logo.render(attributes: [
+              runtime.Attribute("width", "26"),
+              runtime.Attribute("class", "fill-[#2B2E49] w-9 sm:w-6.5"),
+            ]),
+            string_tree.from_strings([
+              "\n        <span class=\"text-[17px] font-semibold text-[#2B2E49] hidden sm:inline\"\n          >Glimr</span>\n      </a>\n\n      <!-- Desktop links -->\n      <div\n        class=\"hidden sm:flex items-center gap-6 text-[14.5px] font-medium text-[#2C2E49] nav\"\n      >\n        <a\n          href=\"https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Docs\n        </a>\n        <a\n          href=\"https://github.com/glimr-org/glimr\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Github\n        </a>\n        <a\n          href=\"https://hexdocs.pm/glimr\"\n          target=\"_blank\"\n          class=\"hover:text-mist-700 transition-colors\"\n          rel=\"nofollow\"\n        >\n          Hex\n        </a>\n      </div>\n\n      <!-- Mobile hamburger -->\n      <button\n        x-on:click=\"open = !open\"\n        class=\"sm:hidden p-1 text-[#2C2E49]\"\n        aria-label=\"Toggle menu\"\n      >\n        <svg\n          x-show=\"!open\"\n          width=\"24\"\n          height=\"24\"\n          viewBox=\"0 0 15 15\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path\n            d=\"M1.5 3C1.22386 3 1 3.22386 1 3.5C1 3.77614 1.22386 4 1.5 4H13.5C13.7761 4 14 3.77614 14 3.5C14 3.22386 13.7761 3 13.5 3H1.5ZM1 7.5C1 7.22386 1.22386 7 1.5 7H13.5C13.7761 7 14 7.22386 14 7.5C14 7.77614 13.7761 8 13.5 8H1.5C1.22386 8 1 7.77614 1 7.5ZM1 11.5C1 11.2239 1.22386 11 1.5 11H13.5C13.7761 11 14 11.2239 14 11.5C14 11.7761 13.7761 12 13.5 12H1.5C1.22386 12 1 11.7761 1 11.5Z\"\n            fill=\"currentColor\"\n            fill-rule=\"evenodd\"\n            clip-rule=\"evenodd\"\n          />\n        </svg>\n        <svg\n          x-show=\"open\"\n          x-cloak\n          width=\"24\"\n          height=\"24\"\n          viewBox=\"0 0 15 15\"\n          fill=\"none\"\n          xmlns=\"http://www.w3.org/2000/svg\"\n        >\n          <path\n            d=\"M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z\"\n            fill=\"currentColor\"\n            fill-rule=\"evenodd\"\n            clip-rule=\"evenodd\"\n          />\n        </svg>\n      </button>\n    ",
+            ]),
+          ]),
+          attributes: [
             runtime.Attribute(
               "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              "pt-5 pb-3 flex items-center justify-between",
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Middleware</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Apply middleware per-route or per-controller. Compose auth, rate\n            limiting, logging, and custom logic in any order.\n          </p>\n        </div>\n\n        <!-- Route groups -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_cube.render(attributes: [
-            runtime.Attribute("width", "19"),
+          ],
+        ),
+        string_tree.from_strings([
+          "\n\n    <!-- Mobile menu -->\n    <div\n      x-show=\"open\"\n      x-cloak\n      x-transition:enter=\"transition ease-out duration-150\"\n      x-transition:enter-start=\"opacity-0 -translate-y-2\"\n      x-transition:enter-end=\"opacity-100 translate-y-0\"\n      x-transition:leave=\"transition ease-in duration-100\"\n      x-transition:leave-start=\"opacity-100 translate-y-0\"\n      x-transition:leave-end=\"opacity-0 -translate-y-2\"\n      class=\"sm:hidden border-t border-slate-100\"\n    >\n      ",
+        ]),
+        components_container.render(
+          slot: string_tree.from_strings([
+            "\n        <a\n          href=\"https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-\"\n          target=\"_blank\"\n          rel=\"nofollow\"\n        >\n          Docs\n        </a>\n        <a\n          href=\"https://github.com/glimr-org/glimr\"\n          target=\"_blank\"\n          rel=\"nofollow\"\n        >\n          Github\n        </a>\n        <a href=\"https://hexdocs.pm/glimr\" target=\"_blank\" rel=\"nofollow\">\n          Hex\n        </a>\n      ",
+          ]),
+          attributes: [
             runtime.Attribute(
               "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              "py-4 flex flex-col gap-3 text-[16px] md:text-[15px] font-medium text-[#2C2E49]",
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Route groups</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Organize routes into web and API groups with their own middleware\n            stacks. Add custom groups as your app grows.\n          </p>\n        </div>\n\n        <!-- Lightning fast routing -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_timer.render(attributes: [
-            runtime.Attribute("width", "19"),
+          ],
+        ),
+        string_tree.from_strings([
+          "\n    </div>\n  </nav>\n\n  <!-- Hero -->\n  <section class=\"relative overflow-hidden\">\n    ",
+        ]),
+        components_container.render(
+          slot: string_tree.concat([
+            string_tree.from_strings([
+              "\n      <!-- Left content -->\n      <div class=\"flex-1 sm:max-w-sm\">\n        <span\n          class=\"inline-block text-[13px] font-semibold text-[#FF43A1] mb-5 bg-[#FFEEF7] rounded-[9px] px-2.5 pb-px\"\n        >\n          v1.0.0\n        </span>\n\n        <h1\n          class=\"text-[34px] sm:text-[33px] leading-[1.07] font-semibold mb-8\"\n        >\n          Build scalable web apps that LLM's can understand and you can trust.\n        </h1>\n\n        <p class=\"text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm\">\n          Gleam's type safety and functional core, plus Glimr's opinionated\n          design mean fewer bugs, confident refactoring, and AI that actually\n          writes correct code.\n        </p>\n\n        <div\n          class=\"flex flex-col sm:flex-row gap-3 items-start sm:items-center\"\n        >\n          ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
+              variant: "",
+              size: "",
+              slot: string_tree.from_strings([
+                "\n            Explore Docs\n          ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("class", "w-full sm:w-auto"),
+              ],
+            ),
+            string_tree.from_strings(["\n\n          "]),
+            components_button.render(
+              href: "#newsletter",
+              variant: "secondary",
+              size: "",
+              slot: string_tree.from_strings([
+                "\n            Join Newsletter\n          ",
+              ]),
+              attributes: [
+                runtime.Attribute("href", "#newsletter"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("l-no-nav", "l-no-nav"),
+                runtime.Attribute("class", "w-full sm:w-auto"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n        </div>\n      </div>\n\n      <!-- Right illustration (desktop) -->\n      <div class=\"flex-1 hidden lg:flex justify-center items-center\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n\n      <!-- Illustration (mobile) -->\n      <div class=\"sm:hidden mt-15 relative w-150 right-22.5\">\n        <img src=\"/static/images/blocks.jpg\" />\n      </div>\n    ",
+            ]),
+          ]),
+          attributes: [
             runtime.Attribute(
               "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              "pt-10 lg:pt-15 pb-7.5 flex flex-col lg:flex-row items-start",
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Lightning fast routing</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Routes compile to pattern-matched Gleam code on the BEAM runtime.\n            Zero overhead, zero runtime lookups.\n          </p>\n        </div>\n\n        <!-- Postgres + SQLite -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_reader.render(attributes: [
-            runtime.Attribute("width", "19"),
-            runtime.Attribute(
-              "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+          ],
+        ),
+        string_tree.from_strings([
+          "\n  </section>\n\n  <!-- Code Showcase -->\n  <section>\n    ",
+        ]),
+        components_container.render(
+          slot: string_tree.concat([
+            string_tree.from_strings([
+              "\n      <div class=\"text-center mb-14\">\n        <span\n          class=\"font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block\"\n          >Beautiful Code</span>\n\n        <h2\n          class=\"text-[28px] sm:text-[30px] font-semibold mb-4 leading-[1.07] max-w-2xl mx-auto\"\n        >\n          A delightful coding experience.\n        </h2>\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto\"\n        >\n          Clean, expressive, and intentional by default. Glimr helps you write\n          code you're happy to come back to whether you're a team of 1 or 100.\n        </p>\n      </div>\n      <div\n        x-data=\"{ tab: 'routing' }\"\n        class=\"flex flex-col lg:flex-row gap-8 items-start\"\n      >\n        <!-- Left: Tabs + Code -->\n        <div class=\"flex-1 min-w-0 w-full\">\n          <!-- Tabs -->\n          <div class=\"flex gap-1 mb-3 overflow-x-auto pb-1\">\n            <button\n              x-on:click=\"tab = 'routing'\"\n              x-bind:class=\"tab === 'routing' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Routing\n            </button>\n            <button\n              x-on:click=\"tab = 'middleware'\"\n              x-bind:class=\"tab === 'middleware' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Middleware\n            </button>\n            <button\n              x-on:click=\"tab = 'liveviews'\"\n              x-bind:class=\"tab === 'liveviews' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Live Views\n            </button>\n            <button\n              x-on:click=\"tab = 'validation'\"\n              x-bind:class=\"tab === 'validation' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Validation\n            </button>\n            <button\n              x-on:click=\"tab = 'migrations'\"\n              x-bind:class=\"tab === 'migrations' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Migrations\n            </button>\n            <button\n              x-on:click=\"tab = 'queries'\"\n              x-bind:class=\"tab === 'queries' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Queries\n            </button>\n            <button\n              x-on:click=\"tab = 'auth'\"\n              x-bind:class=\"tab === 'auth' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Auth\n            </button>\n            <button\n              x-on:click=\"tab = 'cache'\"\n              x-bind:class=\"tab === 'cache' ? 'bg-[#FFEEF7] text-[#FF43A1]' : 'text-[#9293a4] hover:bg-gray-50'\"\n              class=\"px-3 py-1.5 rounded-lg text-[14px] font-medium transition-colors cursor-pointer whitespace-nowrap\"\n            >\n              Cache\n            </button>\n          </div>\n\n          <!-- Code block (fixed height) -->\n          <div>\n            <!-- Routing: single file -->\n            <!-- prettier-ignore -->\n            <div x-show=\"tab === 'routing'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              filename: "user_controller.gleam",
+              borderless: False,
+              slot: string_tree.from_strings([
+                "/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  use users &lt;- user.list_or_fail(ctx.app.db)\n\n  response.html(user_index.render(users: users), 200)\n}\n\n/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  use user &lt;- user.find_or_fail(ctx.app.db, user_id)\n\n  response.html(user_show.render(user: user), 200)\n}",
+              ]),
+              attributes: [
+                runtime.Attribute("language", "gleam"),
+                runtime.Attribute("filename", "user_controller.gleam"),
+              ],
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">PostgreSQL + SQLite</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            First-class support for both databases. Write SQL, and Glimr\n            generates fully typed repository functions and driver-specific\n            migrations automatically.\n          </p>\n        </div>\n\n        <!-- Redis + file cache -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_reload.render(attributes: [
-            runtime.Attribute("width", "19"),
-            runtime.Attribute(
-              "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            string_tree.from_strings([
+              "\n            </div>\n\n            <!-- Middleware: multi-file -->\n            <div x-show=\"tab === 'middleware'\" x-data=\"{ file: 'middleware' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'middleware'\"\n                    x-bind:class=\"file === 'middleware' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    logger.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'middleware'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "import app/app.{type App}\nimport glimr/http/context.{type Context}\nimport glimr/http/http.{type Response}\nimport glimr/http/kernel.{type Next}\n\npub fn run(ctx: Context(App), next: Next(App)) -&gt; Response {\n  io.println(\"Request: \" &lt;&gt; ctx.req.path)\n\n  // Pass context to next middleware/handler\n  next(ctx)\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Redis + file cache</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Built-in caching with Redis, file, SQLite, and PostgreSQL stores.\n            The remember pattern handles cache-or-compute in a single\n            expression.\n          </p>\n        </div>\n\n        <!-- Multi database -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_code.render(attributes: [
-            runtime.Attribute("width", "19"),
-            runtime.Attribute(
-              "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            string_tree.from_strings([
+              "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "import app/http/middleware/logger\nimport glimr/http/middleware\n\n/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  use ctx &lt;- middleware.apply([logger.run], ctx)\n  use users &lt;- user.list_or_fail(ctx.app.db)\n  response.html(user_index.render(users: users), 200)\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Multi database</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Run multiple database connections side by side. Each with its own\n            models, migrations, queries, and generated repositories.\n          </p>\n        </div>\n\n        <!-- Auth scaffolding -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_lock.render(attributes: [
-            runtime.Attribute("width", "19"),
-            runtime.Attribute(
-              "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            string_tree.from_strings([
+              "\n                </div>\n              </div>\n            </div>\n\n            <!-- Templates: multi-file -->\n            <div x-show=\"tab === 'liveviews'\" x-data=\"{ file: 'template' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'template'\"\n                    x-bind:class=\"file === 'template' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    counter.loom.html\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    counter_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'template'\">\n",
+            ]),
+            components_code.render(
+              language: "html",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "---\nprops(count: Int)\n---\n\n&lt;div class=\"text-center\"&gt;\n  &lt;p class=\"text-2xl mb-4\"&gt;Count: {{ count }}&lt;/p&gt;\n\n  &lt;button l-on:click=\"count = count - 1\"&gt;-&lt;/button&gt;\n  &lt;button l-on:click=\"count = count + 1\"&gt;+&lt;/button&gt;\n&lt;/div&gt;\n\n&lt;!-- Two-way binding --&gt;\n&lt;input l-model=\"name\" /&gt;\n&lt;p&gt;Hello, {{ name }}!&lt;/p&gt;",
+              ]),
+              attributes: [runtime.Attribute("language", "html")],
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Auth scaffolding</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            One command generates a full auth stack: model, controllers,\n            validators, middleware, and views. Scoped mode for multi-model auth.\n          </p>\n        </div>\n\n        <!-- Live views -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_lightning_bolt.render(attributes: [
-            runtime.Attribute("width", "19"),
-            runtime.Attribute(
-              "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            string_tree.from_strings([
+              "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "import compiled/loom/counter\n\n/// @get \"/counter\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  response.html(counter.render(count: 0), 200)\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Live views</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Server-driven reactivity over WebSockets. SPA navigation, two-way\n            binding, loading states, and components with slots. No JS required.\n          </p>\n        </div>\n\n        <!-- Validation -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          "
-          <> components_icons_check_circle.render(attributes: [
-            runtime.Attribute("width", "19"),
-            runtime.Attribute(
-              "class",
-              "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+            string_tree.from_strings([
+              "\n                </div>\n              </div>\n            </div>\n\n            <!-- Validation: multi-file -->\n            <div x-show=\"tab === 'validation'\" x-data=\"{ file: 'validator' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'validator'\"\n                    x-bind:class=\"file === 'validator' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_store.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'validator'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "/// Define the shape of the data returned after validation\npub type Data {\n  Data(\n    name: String,\n    email: String,\n  )\n}\n\n/// Define your form's validation rules\nfn rules(_ctx: Context(App)) -&gt; List(Rule) {\n  [\n    v.for(\"name\", [v.Required, v.MinLength(2)]),\n    v.for(\"email\", [v.Required, v.Email, v.MaxLength(255)]),\n  ]\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
             ),
-          ])
-          <> "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Form validation</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Declarative rules that return typed structs. Automatic error\n            handling for HTML and JSON responses. Sanitize inputs in one place.\n          </p>\n        </div>\n      </div>\n\n      <div class=\"text-center mt-15\">\n        "
-          <> components_button.render(
-            href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
-            variant: "secondary",
-            size: "",
-            slot: { "" <> "\n          Read the docs\n        " },
-            attributes: [
+            string_tree.from_strings([
+              "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "/// @post \"/users\"\npub fn store(ctx: Context(App)) -&gt; Response {\n  use data &lt;- user_store.validate(ctx)\n\n  let user = user.create(\n    pool: ctx.app.db, \n    name: data.name, \n    email: data.email\n  )\n\n  redirect.to(\"/users/\" &lt;&gt; user.id)\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n              </div>\n            </div>\n\n            <!-- Migrations: multi-file -->\n            <div x-show=\"tab === 'migrations'\" x-data=\"{ file: 'schema' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'schema'\"\n                    x-bind:class=\"file === 'schema' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_schema.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'migration'\"\n                    x-bind:class=\"file === 'migration' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    generated migration\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'schema'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "pub const table_name = \"users\"\n\npub fn definition() {\n  schema.table(table_name, [\n    schema.id(),\n    schema.string(\"email\"),\n    schema.string(\"name\") |> schema.nullable(),\n    schema.boolean(\"is_admin\") |> schema.default_bool(False),\n    schema.unix_timestamps(),\n  ])\n  |> schema.indexes([\n    schema.unique([\"email\"]),\n  ])\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'migration'\">\n",
+            ]),
+            components_code.render(
+              language: "sql",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "-- Auto-generated by ./glimr db_gen\n\nCREATE TABLE users (\n  id INTEGER PRIMARY KEY AUTOINCREMENT,\n  email TEXT NOT NULL,\n  name TEXT,\n  is_admin INTEGER NOT NULL DEFAULT 0,\n  created_at INTEGER NOT NULL,\n  updated_at INTEGER NOT NULL\n);\n\nCREATE UNIQUE INDEX idx_users_email\n  ON users (email);",
+              ]),
+              attributes: [runtime.Attribute("language", "sql")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n              </div>\n            </div>\n\n            <!-- Queries: multi-file -->\n            <div x-show=\"tab === 'queries'\" x-data=\"{ file: 'find' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'find'\"\n                    x-bind:class=\"file === 'find' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    find.sql\n                  </button>\n                  <button\n                    x-on:click=\"file = 'list'\"\n                    x-bind:class=\"file === 'list' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    list_active.sql\n                  </button>\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    user_controller.gleam\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'find'\">\n",
+            ]),
+            components_code.render(
+              language: "sql",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "-- queries/find.sql\nSELECT *\nFROM users\nWHERE id = $1;",
+              ]),
+              attributes: [runtime.Attribute("language", "sql")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'list'\">\n",
+            ]),
+            components_code.render(
+              language: "sql",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "-- queries/list_active.sql\nSELECT *\nFROM users\nWHERE is_active = true\nORDER BY created_at DESC;",
+              ]),
+              attributes: [runtime.Attribute("language", "sql")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  use user &lt;- user.find_or_fail(ctx.app.db, user_id)\n  response.html(user_show.render(user: user), 200)\n}\n\n/// @get \"/users/active\"\npub fn active(ctx: Context(App)) -&gt; Response {\n  use users &lt;- user.list_active_or_fail(ctx.app.db)\n  response.html(user_index.render(users: users), 200)\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n              </div>\n            </div>\n\n            <!-- Auth: multi-file -->\n            <div x-show=\"tab === 'auth'\" x-data=\"{ file: 'controller' }\">\n              <div class=\"rounded-xl border border-slate-200 overflow-hidden\">\n                <div class=\"flex bg-slate-100 border-b border-slate-200\">\n                  <button\n                    x-on:click=\"file = 'controller'\"\n                    x-bind:class=\"file === 'controller' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    dashboard_controller.gleam\n                  </button>\n                  <button\n                    x-on:click=\"file = 'view'\"\n                    x-bind:class=\"file === 'view' ? 'bg-slate-50 text-[#4c4f69]' : 'text-[#9ca0b0] hover:text-[#6c6f85]'\"\n                    class=\"px-4 py-2 text-[12.5px] font-mono font-light cursor-pointer transition-colors\"\n                  >\n                    dashboard.loom.html\n                  </button>\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'controller'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "/// @get \"/dashboard\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  // Ensure only authenticated ones reach this route\n  use ctx &lt;- middleware.apply([auth_user], ctx)\n\n  // Get the authenticated user from our context\n  let assert option.Some(user) = ctx.app.user\n\n  // Pass the authenticated user to your view\n  response.html(dashboard.render(user: user), 200)\n}",
+              ]),
+              attributes: [runtime.Attribute("language", "gleam")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n                <!-- prettier-ignore -->\n                <div x-show=\"file === 'view'\">\n",
+            ]),
+            components_code.render(
+              language: "html",
+              borderless: True,
+              filename: "",
+              slot: string_tree.from_strings([
+                "---\nimport database/main/models/user/gen/user.{type User}\n\nprops(user: User) \n---\n\n&lt;x-layouts:app&gt;\n  &lt;div class=\"max-w-2xl mx-auto py-12\"&gt;\n    &lt;h1 class=\"text-2xl font-bold\"&gt;\n      Welcome back, {{ user.name }}\n    &lt;/h1&gt;\n\n    &lt;p class=\"mt-2\"&gt;{{ user.email }}&lt;/p&gt;\n  &lt;/div&gt;\n&lt;/x-layouts:app&gt;",
+              ]),
+              attributes: [runtime.Attribute("language", "html")],
+            ),
+            string_tree.from_strings([
+              "\n                </div>\n              </div>\n            </div>\n\n            <!-- Cache: single file -->\n            <!-- prettier-ignore -->\n            <div x-show=\"tab === 'cache'\">\n",
+            ]),
+            components_code.render(
+              language: "gleam",
+              filename: "user_controller.gleam",
+              borderless: False,
+              slot: string_tree.from_strings([
+                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  // Fetch from cache, or query DB on miss\n  let user_result = {\n    use &lt;- cache.try_remember_json(\n      ctx.app.cache,\n      \"user:\" &lt;&gt; int.to_string(user_id),\n      3600,\n      user.decoder(),\n      user.encoder(),\n    )\n    user.find(ctx.app.db, user_id)\n  }\n\n  case user_result {\n    Ok(user) -&gt; response.html(user_show.render(user: user), 200)\n    Error(db.NotFound) -&gt; response.not_found()\n    Error(_) -&gt; response.internal_server_error()\n  }\n}",
+              ]),
+              attributes: [
+                runtime.Attribute("language", "gleam"),
+                runtime.Attribute("filename", "user_controller.gleam"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n            </div>\n          </div>\n        </div>\n\n        <!-- Right: Heading + Description -->\n        <div class=\"w-full lg:w-95 shrink-0 lg:pt-14\">\n          <div x-show=\"tab === 'routing'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_rocket.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">\n              Annotation-based routing\n            </h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Define routes with simple annotations in your controllers. Glimr\n              compiles them into a pattern-matched router, not a runtime lookup\n              table. The result is extremely fast routing with zero overhead.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Apply middleware at the controller or route level. Routes\n              recompile automatically when you save, so there's no manual step\n              between writing a handler and testing it.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#defining-routes",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#defining-routes",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n\n          <div x-show=\"tab === 'middleware'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_layers.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">\n              Composable middleware\n            </h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Intercept requests before they reach your controllers. Modify\n              context, check auth, log requests, rate limit, or run any custom\n              logic.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Apply per-route with the\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >use</span>\n              syntax, or per-controller with a\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >middleware()</span>\n              function. Changes to context flow through to all downstream\n              handlers.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#middleware",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#middleware",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n\n          <div x-show=\"tab === 'liveviews'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_lightning_bolt.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Reactive templates</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Loom templates compile to type-safe Gleam. Inspired by Pheonix\n              LiveView, add event handlers and they become reactive over\n              WebSockets. No JavaScript required.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              All state lives on the server. Interactions trigger a minimal diff\n              that patches only what changed. Built-in SPA navigation, two-way\n              binding, loading states, and components with slots.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#loom-template-engine",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#loom-template-engine",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n\n          <div x-show=\"tab === 'validation'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_check.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">\n              Declarative validation\n            </h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Define rules declaratively and get back a typed struct, not a bag\n              of strings. Validation errors are handled automatically: flashed\n              to the session for HTML routes, returned as JSON for APIs.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              The\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >use</span>\n              syntax short-circuits on failure, so your controller only runs\n              when data is valid. Transform and sanitize inputs in one place\n              before they reach your business logic.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#form-validation",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#form-validation",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n\n          <div x-show=\"tab === 'migrations'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_stack.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Automatic migrations</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Define your schema in Gleam with a fluent, type-safe API. Glimr\n              compares it against a stored snapshot, detects changes, and\n              generates driver-specific SQL migrations automatically. Just run\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >./glimr db_gen</span>\n              and you're done.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#migrations",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#migrations",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n\n          <div x-show=\"tab === 'queries'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_reader.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">SQL over ORM</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Write real SQL in plain <span class=\"font-medium\">.sql</span>\n              files. Glimr automatically generates fully typed Gleam repository\n              functions you can use directly in your controllers. No ORM magic,\n              no query builders, just write plain SQL like God intended.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Need multiple databases? Glimr supports multiple connections out\n              of the box. SQLite, PostgreSQL, or both. Each with its own models,\n              migrations, and generated repositories.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#queries",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#queries",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n\n          <div x-show=\"tab === 'cache'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_timer.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Caching</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Built-in caching with file, Redis, SQLite, and PostgreSQL stores.\n              The\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >remember</span>\n              pattern fetches from cache or computes on miss in a single\n              expression.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Cache strings, JSON, or structured data with auto-generated\n              encoders and decoders. Supports TTL, increment/decrement for rate\n              limiting, and flush operations.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#cache",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#cache",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n\n          <div x-show=\"tab === 'auth'\">\n            <div\n              class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n            >\n              ",
+            ]),
+            components_icons_lock.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n            </div>\n            <h3 class=\"text-[20px] font-semibold mb-2\">Built-in auth</h3>\n            <p class=\"text-[16px] md:text-[15px] mb-3\">\n              Run\n              <span\n                class=\"font-mono text-[13px] bg-slate-100 px-1.5 py-0.5 rounded\"\n                >./glimr make_auth user</span>\n              and get a complete auth stack: model, migrations, login/register\n              controllers, validators, middleware, and Loom views. All\n              generated, all type-safe.\n            </p>\n            <p class=\"text-[16px] md:text-[15px] mb-6\">\n              Need separate auth for admins and users? Use scoped mode for fully\n              independent auth stacks with their own middleware, sessions, and\n              routes.\n            </p>\n            ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#authentication",
+              variant: "secondary",
+              size: "sm",
+              slot: string_tree.from_strings([
+                "\n              Learn more\n            ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#authentication",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+                runtime.Attribute("size", "sm"),
+              ],
+            ),
+            string_tree.from_strings([
+              "\n          </div>\n        </div>\n      </div>\n    ",
+            ]),
+          ]),
+          attributes: [runtime.Attribute("class", "pt-10 pb-17.5")],
+        ),
+        string_tree.from_strings([
+          "\n  </section>\n\n  <!-- LLM Section -->\n  <section>\n    ",
+        ]),
+        components_container.render(
+          slot: string_tree.concat([
+            string_tree.from_strings([
+              "\n      <div class=\"text-center mb-12\">\n        <span\n          class=\"font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block\"\n          >Truly AI-ready</span>\n\n        <h2\n          class=\"text-[28px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto\"\n        >\n          Other frameworks claim to be a good fit for AI agents, here's why\n          Glimr\n          <span class=\"text-[#FF43A1]\">actually</span> is.\n        </h2>\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto\"\n        >\n          Most frameworks were designed before LLM agents wrote code. Gleam and\n          Glimr have the constraints that make an agent-driven workflow actually\n          reliable.\n        </p>\n      </div>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-10\">\n        <!-- Tight feedback loop -->\n        <div class=\"bg-slate-50 rounded-xl p-7\">\n          <div\n            class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n          >\n            ",
+            ]),
+            components_icons_update.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n          </div>\n          <h3 class=\"text-[18px] font-semibold mb-2 text-[#2c2e49]\">\n            Tight feedback loop\n          </h3>\n          <p class=\"text-[16px] md:text-[15px] text-[#747687]\">\n            Gleam's strict type system and compiler catch errors instantly. When\n            an LLM generates wrong code, it gets precise error messages it can\n            act on, not silent failures that surface in production.\n          </p>\n        </div>\n\n        <!-- No hidden magic -->\n        <div class=\"bg-slate-50 rounded-xl p-7\">\n          <div\n            class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n          >\n            ",
+            ]),
+            components_icons_eye.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n          </div>\n          <h3 class=\"text-[18px] font-semibold mb-2 text-[#2c2e49]\">\n            Functional over OOP\n          </h3>\n          <p class=\"text-[16px] md:text-[15px] text-[#747687]\">\n            Gleam is a functional language, meaning no inheritance, no\n            decorators, no implicit behavior. Everything in Gleam is explicit\n            and in the code. An LLM doesn't need context it can't see.\n          </p>\n        </div>\n\n        <!-- One way to do things -->\n        <div class=\"bg-slate-50 rounded-xl p-7\">\n          <div\n            class=\"w-10 h-10 rounded-full bg-[#FFF0F7] flex items-center justify-center mb-4\"\n          >\n            ",
+            ]),
+            components_icons_cube.render(attributes: [
+              runtime.Attribute("width", "18"),
+              runtime.Attribute("class", "text-[#FF43A1]"),
+            ]),
+            string_tree.from_strings([
+              "\n          </div>\n          <h3 class=\"text-[18px] font-semibold mb-2 text-[#2c2e49]\">\n            Convention over configuration\n          </h3>\n          <p class=\"text-[16px] md:text-[15px] text-[#747687]\">\n            Glimr's opinionated conventions mean the LLM doesn't have to choose\n            between ORMs, routers, or project structures. There's one proven\n            path, and it's well-documented.\n          </p>\n        </div>\n      </div>\n\n      <p\n        class=\"mt-17.5 text-center text-[22px] max-w-3xl mx-auto font-light text-[#2c2e49]\"\n      >\n        <span class=\"bg-[#fde6f1] pl-0.75 rounded-xs\"\n          >Frameworks like Laravel and Rails pioneered convention over\n          configuration, but they're built on dynamic, object-oriented\n          languages.</span>\n        An LLM can generate code that looks right, passes linting, and breaks in\n        production. Gleam's compiler won't let that happen. Functions take data\n        in and return data out. Conventions tell the LLM <em>what</em> to write.\n        The type system tells it <em>what it got wrong</em>.\n      </p>\n    ",
+            ]),
+          ]),
+          attributes: [runtime.Attribute("class", "pt-10 pb-22.5")],
+        ),
+        string_tree.from_strings([
+          "\n  </section>\n\n  <!-- Features -->\n  <section class=\"bg-slate-50\">\n    ",
+        ]),
+        components_container.render(
+          slot: string_tree.concat([
+            string_tree.from_strings([
+              "\n      <div class=\"text-center mb-12\">\n        <span\n          class=\"font-semibold uppercase text-[14px] text-[#FF43A1] mb-2 block\"\n          >Batteries included</span>\n\n        <h2\n          class=\"text-[28px] sm:text-[30px] font-semibold mb-6 leading-[1.07] max-w-2xl mx-auto\"\n        >\n          Ship with confidence, not dependencies.\n        </h2>\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] max-w-150 mx-auto\"\n        >\n          Glimr is still young, but comes with a lot out of the box. Routing,\n          auth, validation, caching, and more. No need to assemble a stack from\n          scattered packages.\n        </p>\n      </div>\n\n      <div class=\"grid grid-cols-1 md:grid-cols-3 gap-x-20 gap-y-8.75\">\n        <!-- Middleware -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_layers.render(attributes: [
+              runtime.Attribute("width", "19"),
               runtime.Attribute(
-                "href",
-                "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
               ),
-              runtime.Attribute("target", "_blank"),
-              runtime.Attribute("variant", "secondary"),
-            ],
-          )
-          <> "\n      </div>\n    "
-        },
-        attributes: [runtime.Attribute("class", "pt-17.5 pb-25")],
-      )
-      <> "\n  </section>\n\n  <!-- Newsletter -->\n  <section id=\"newsletter\">\n    "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n      <div class=\"max-w-137.5 mx-auto\">\n        <span\n          class=\"font-semibold text-center uppercase text-[14px] text-[#FF43A1] mb-2.5 block\"\n          >Join Newsletter</span>\n\n        <h2 class=\"text-[28px] font-semibold mb-5 leading-[1.1] text-center\">\n          Keep up with Glimr's development\n        </h2>\n\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] mb-8 text-center\"\n        >\n          Enter your email and stay up to date on new features, releases, and\n          tips for building with Glimr. No spam, unsubscribe anytime.\n        </p>\n\n        "
-          <> components_signup_form.render(attributes: [])
-          <> "\n      </div>\n    "
-        },
-        attributes: [runtime.Attribute("class", "pt-20 pb-25")],
-      )
-      <> "\n  </section>\n\n  "
-      <> components_container.render(
-        slot: {
-          ""
-          <> "\n    <div\n      class=\"flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-700 text-center sm:text-left\"\n    >\n      <div class=\"flex gap-4 items-center\">\n        "
-          <> components_logo.render(attributes: [
-            runtime.Attribute("width", "20"),
-            runtime.Attribute("class", "fill-[#2B2E49]"),
-          ])
-          <> "\n        <a\n          href=\"https://github.com/miguejarias\"\n          class=\"border-b border-slate-400 hover:text-slate-900\"\n          rel=\"nofollow\"\n          target=\"_blank\"\n        >\n          © "
-          <> runtime.display(unix_timestamp.current_year())
-          <> " Miguel Arias\n        </a>\n\n        <a\n          href=\"https://github.com/glimr-org/framework/blob/main/LICENSE.md\"\n          class=\"border-b border-slate-400 hover:text-slate-900\"\n          rel=\"nofollow\"\n          target=\"_blank\"\n        >\n          MIT License\n        </a>\n      </div>\n\n      <div>\n        This website is\n        <a\n          href=\"https://github.com/glimr-org/website\"\n          class=\"border-b border-slate-400 hover:text-slate-900\"\n          rel=\"nofollow\"\n          target=\"_blank\"\n        >\n          open-source\n        </a>\n        and built with Glimr!\n      </div>\n    </div>\n  "
-        },
-        attributes: [runtime.Attribute("class", "py-7.5")],
-      )
-      <> "\n"
-    },
-    attributes: [],
-  )
-  <> "\n"
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Middleware</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Apply middleware per-route or per-controller. Compose auth, rate\n            limiting, logging, and custom logic in any order.\n          </p>\n        </div>\n\n        <!-- Route groups -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_cube.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Route groups</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Organize routes into web and API groups with their own middleware\n            stacks. Add custom groups as your app grows.\n          </p>\n        </div>\n\n        <!-- Lightning fast routing -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_timer.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Lightning fast routing</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Routes compile to pattern-matched Gleam code on the BEAM runtime.\n            Zero overhead, zero runtime lookups.\n          </p>\n        </div>\n\n        <!-- Postgres + SQLite -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_reader.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">PostgreSQL + SQLite</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            First-class support for both databases. Write SQL, and Glimr\n            generates fully typed repository functions and driver-specific\n            migrations automatically.\n          </p>\n        </div>\n\n        <!-- Redis + file cache -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_reload.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Redis + file cache</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Built-in caching with Redis, file, SQLite, and PostgreSQL stores.\n            The remember pattern handles cache-or-compute in a single\n            expression.\n          </p>\n        </div>\n\n        <!-- Multi database -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_code.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Multi database</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Run multiple database connections side by side. Each with its own\n            models, migrations, queries, and generated repositories.\n          </p>\n        </div>\n\n        <!-- Auth scaffolding -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_lock.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Auth scaffolding</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            One command generates a full auth stack: model, controllers,\n            validators, middleware, and views. Scoped mode for multi-model auth.\n          </p>\n        </div>\n\n        <!-- Live views -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_lightning_bolt.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Live views</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Server-driven reactivity over WebSockets. SPA navigation, two-way\n            binding, loading states, and components with slots. No JS required.\n          </p>\n        </div>\n\n        <!-- Validation -->\n        <div\n          class=\"max-w-[330px] text-center mx-auto md:max-w-none md:text-left md:mx-0\"\n        >\n          ",
+            ]),
+            components_icons_check_circle.render(attributes: [
+              runtime.Attribute("width", "19"),
+              runtime.Attribute(
+                "class",
+                "text-[#FFA9D4] mb-3 mx-auto md:mx-0 size-[19px]",
+              ),
+            ]),
+            string_tree.from_strings([
+              "\n          <h3 class=\"text-[18px] font-semibold mb-2\">Form validation</h3>\n          <p class=\"text-[16px] md:text-[15px]\">\n            Declarative rules that return typed structs. Automatic error\n            handling for HTML and JSON responses. Sanitize inputs in one place.\n          </p>\n        </div>\n      </div>\n\n      <div class=\"text-center mt-15\">\n        ",
+            ]),
+            components_button.render(
+              href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
+              variant: "secondary",
+              size: "",
+              slot: string_tree.from_strings([
+                "\n          Read the docs\n        ",
+              ]),
+              attributes: [
+                runtime.Attribute(
+                  "href",
+                  "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
+                ),
+                runtime.Attribute("target", "_blank"),
+                runtime.Attribute("variant", "secondary"),
+              ],
+            ),
+            string_tree.from_strings(["\n      </div>\n    "]),
+          ]),
+          attributes: [runtime.Attribute("class", "pt-17.5 pb-25")],
+        ),
+        string_tree.from_strings([
+          "\n  </section>\n\n  <!-- Newsletter -->\n  <section id=\"newsletter\">\n    ",
+        ]),
+        components_container.render(
+          slot: string_tree.concat([
+            string_tree.from_strings([
+              "\n      <div class=\"max-w-137.5 mx-auto\">\n        <span\n          class=\"font-semibold text-center uppercase text-[14px] text-[#FF43A1] mb-2.5 block\"\n          >Join Newsletter</span>\n\n        <h2 class=\"text-[28px] font-semibold mb-5 leading-[1.1] text-center\">\n          Keep up with Glimr's development\n        </h2>\n\n        <p\n          class=\"text-[17px] md:text-[16px] leading-snug text-[#747687] mb-8 text-center\"\n        >\n          Enter your email and stay up to date on new features, releases, and\n          tips for building with Glimr. No spam, unsubscribe anytime.\n        </p>\n\n        ",
+            ]),
+            components_signup_form.render(attributes: []),
+            string_tree.from_strings(["\n      </div>\n    "]),
+          ]),
+          attributes: [runtime.Attribute("class", "pt-20 pb-25")],
+        ),
+        string_tree.from_strings(["\n  </section>\n\n  "]),
+        components_container.render(
+          slot: string_tree.concat([
+            string_tree.from_strings([
+              "\n    <div\n      class=\"flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-700 text-center sm:text-left\"\n    >\n      <div class=\"flex gap-4 items-center\">\n        ",
+            ]),
+            components_logo.render(attributes: [
+              runtime.Attribute("width", "20"),
+              runtime.Attribute("class", "fill-[#2B2E49]"),
+            ]),
+            string_tree.from_strings([
+              "\n        <a\n          href=\"https://github.com/miguejarias\"\n          class=\"border-b border-slate-400 hover:text-slate-900\"\n          rel=\"nofollow\"\n          target=\"_blank\"\n        >\n          © ",
+              runtime.display(unix_timestamp.current_year()),
+              " Miguel Arias\n        </a>\n\n        <a\n          href=\"https://github.com/glimr-org/framework/blob/main/LICENSE.md\"\n          class=\"border-b border-slate-400 hover:text-slate-900\"\n          rel=\"nofollow\"\n          target=\"_blank\"\n        >\n          MIT License\n        </a>\n      </div>\n\n      <div>\n        This website is\n        <a\n          href=\"https://github.com/glimr-org/website\"\n          class=\"border-b border-slate-400 hover:text-slate-900\"\n          rel=\"nofollow\"\n          target=\"_blank\"\n        >\n          open-source\n        </a>\n        and built with Glimr!\n      </div>\n    </div>\n  ",
+            ]),
+          ]),
+          attributes: [runtime.Attribute("class", "py-7.5")],
+        ),
+        string_tree.from_strings(["\n"]),
+      ]),
+      attributes: [],
+    ),
+    string_tree.from_strings(["\n"]),
+  ])
 }
