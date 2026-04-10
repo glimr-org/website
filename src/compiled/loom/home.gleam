@@ -141,7 +141,7 @@ pub fn render() -> StringTree {
               filename: "user_controller.gleam",
               borderless: False,
               slot: string_tree.from_strings([
-                "/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  use users &lt;- user.list_or_fail(ctx.app.db)\n\n  response.html(user_index.loom(users: users), 200)\n}\n\n/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  use user &lt;- user.find_or_fail(ctx.app.db, user_id)\n\n  response.html(user_show.loom(user: user), 200)\n}",
+                "/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  use users &lt;- user.list_or_fail(ctx.app.db)\n\n  response.loom(user_index.render(users: users), 200)\n}\n\n/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  use user &lt;- user.find_or_fail(ctx.app.db, user_id)\n\n  response.loom(user_show.render(user: user), 200)\n}",
               ]),
               attributes: [
                 runtime.Attribute("language", "gleam"),
@@ -168,7 +168,7 @@ pub fn render() -> StringTree {
               borderless: True,
               filename: "",
               slot: string_tree.from_strings([
-                "import app/http/middleware/logger\nimport glimr/http/middleware\n\n/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  use ctx &lt;- middleware.apply([logger.run], ctx)\n  use users &lt;- user.list_or_fail(ctx.app.db)\n  response.html(user_index.loom(users: users), 200)\n}",
+                "import app/http/middleware/logger\nimport glimr/http/middleware\n\n/// @get \"/users\"\npub fn index(ctx: Context(App)) -&gt; Response {\n  use ctx &lt;- middleware.apply([logger.run], ctx)\n  use users &lt;- user.list_or_fail(ctx.app.db)\n  response.loom(user_index.render(users: users), 200)\n}",
               ]),
               attributes: [runtime.Attribute("language", "gleam")],
             ),
@@ -192,7 +192,7 @@ pub fn render() -> StringTree {
               borderless: True,
               filename: "",
               slot: string_tree.from_strings([
-                "import compiled/loom/counter\n\n/// @get \"/counter\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  response.html(counter.loom(count: 0), 200)\n}",
+                "import compiled/loom/counter\n\n/// @get \"/counter\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  response.loom(counter.render(count: 0), 200)\n}",
               ]),
               attributes: [runtime.Attribute("language", "gleam")],
             ),
@@ -276,7 +276,7 @@ pub fn render() -> StringTree {
               borderless: True,
               filename: "",
               slot: string_tree.from_strings([
-                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  use user &lt;- user.find_or_fail(ctx.app.db, user_id)\n  response.html(user_show.loom(user: user), 200)\n}\n\n/// @get \"/users/active\"\npub fn active(ctx: Context(App)) -&gt; Response {\n  use users &lt;- user.list_active_or_fail(ctx.app.db)\n  response.html(user_index.loom(users: users), 200)\n}",
+                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  use user &lt;- user.find_or_fail(ctx.app.db, user_id)\n  response.loom(user_show.render(user: user), 200)\n}\n\n/// @get \"/users/active\"\npub fn active(ctx: Context(App)) -&gt; Response {\n  use users &lt;- user.list_active_or_fail(ctx.app.db)\n  response.loom(user_index.render(users: users), 200)\n}",
               ]),
               attributes: [runtime.Attribute("language", "gleam")],
             ),
@@ -288,7 +288,7 @@ pub fn render() -> StringTree {
               borderless: True,
               filename: "",
               slot: string_tree.from_strings([
-                "/// @get \"/dashboard\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  // Ensure only authenticated ones reach this route\n  use ctx &lt;- middleware.apply([auth_user], ctx)\n\n  // Get the authenticated user from our context\n  let assert option.Some(user) = ctx.app.user\n\n  // Pass the authenticated user to your view\n  response.html(dashboard.loom(user: user), 200)\n}",
+                "/// @get \"/dashboard\"\npub fn show(ctx: Context(App)) -&gt; Response {\n  // Ensure only authenticated ones reach this route\n  use ctx &lt;- middleware.apply([auth_user], ctx)\n\n  // Get the authenticated user from our context\n  let assert option.Some(user) = ctx.app.user\n\n  // Pass the authenticated user to your view\n  response.loom(dashboard.render(user: user), 200)\n}",
               ]),
               attributes: [runtime.Attribute("language", "gleam")],
             ),
@@ -312,7 +312,7 @@ pub fn render() -> StringTree {
               filename: "user_controller.gleam",
               borderless: False,
               slot: string_tree.from_strings([
-                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  // Fetch from cache, or query DB on miss\n  let user_result = {\n    use &lt;- cache.try_remember_json(\n      ctx.app.cache,\n      \"user:\" &lt;&gt; int.to_string(user_id),\n      3600,\n      user.decoder(),\n      user.encoder(),\n    )\n    user.find(ctx.app.db, user_id)\n  }\n\n  case user_result {\n    Ok(user) -&gt; response.html(user_show.loom(user: user), 200)\n    Error(db.NotFound) -&gt; response.not_found()\n    Error(_) -&gt; response.internal_server_error()\n  }\n}",
+                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  // Fetch from cache, or query DB on miss\n  let user_result = {\n    use &lt;- cache.try_remember_json(\n      ctx.app.cache,\n      \"user:\" &lt;&gt; int.to_string(user_id),\n      3600,\n      user.decoder(),\n      user.encoder(),\n    )\n    user.find(ctx.app.db, user_id)\n  }\n\n  case user_result {\n    Ok(user) -&gt; response.loom(user_show.render(user: user), 200)\n    Error(db.NotFound) -&gt; response.not_found()\n    Error(_) -&gt; response.internal_server_error()\n  }\n}",
               ]),
               attributes: [
                 runtime.Attribute("language", "gleam"),
