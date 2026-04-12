@@ -4,5 +4,5 @@ import glimr/response/response
 
 /// @get "/"
 pub fn show() -> Response {
-  response.loom(home.render(), 200)
+  home.render() |> response.string_tree(200)
 }

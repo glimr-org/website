@@ -136,10 +136,8 @@ import glimr/utils/unix_timestamp
           v1.0.0
         </span>
 
-        <h1
-          class="text-[34px] sm:text-[33px] leading-[1.07] font-semibold mb-8"
-        >
-          Build scalable web apps that LLM's can understand and you can trust.
+        <h1 class="text-[34px] leading-[1.07] font-semibold mb-8">
+          The batteries-included web framework for Gleam
         </h1>
 
         <p class="text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm">
@@ -278,14 +276,16 @@ import glimr/utils/unix_timestamp
 pub fn index(ctx: Context(App)) -&gt; Response {
   use users &lt;- user.list_or_fail(ctx.app.db)
 
-  response.loom(user_index.render(users: users), 200)
+  user_index.render(users: users)
+  |> response.string_tree(200)
 }
 
 /// @get "/users/:user_id"
 pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
   use user &lt;- user.find_or_fail(ctx.app.db, user_id)
 
-  response.loom(user_show.render(user: user), 200)
+  user_show.render(user: user)
+  |> response.string_tree(200)
 }</x-code>
             </div>
 
@@ -331,7 +331,9 @@ import glimr/http/middleware
 pub fn index(ctx: Context(App)) -&gt; Response {
   use ctx &lt;- middleware.apply([logger.run], ctx)
   use users &lt;- user.list_or_fail(ctx.app.db)
-  response.loom(user_index.render(users: users), 200)
+
+  user_index.render(users: users)
+  |> response.string_tree(200)
 }</x-code>
                 </div>
               </div>
@@ -379,7 +381,8 @@ props(count: Int)
 
 /// @get "/counter"
 pub fn show(ctx: Context(App)) -&gt; Response {
-  response.loom(counter.render(count: 0), 200)
+  counter.render(count: 0)
+  |> response.string_tree(200)
 }</x-code>
                 </div>
               </div>
@@ -541,13 +544,17 @@ ORDER BY created_at DESC;</x-code>
 <x-code language="gleam" borderless>/// @get "/users/:user_id"
 pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
   use user &lt;- user.find_or_fail(ctx.app.db, user_id)
-  response.loom(user_show.render(user: user), 200)
+
+  user_show.render(user: user)
+  |> response.string_tree(200)
 }
 
 /// @get "/users/active"
 pub fn active(ctx: Context(App)) -&gt; Response {
   use users &lt;- user.list_active_or_fail(ctx.app.db)
-  response.loom(user_index.render(users: users), 200)
+
+  user_index.render(users: users)
+  |> response.string_tree(200)
 }</x-code>
                 </div>
               </div>
@@ -583,7 +590,8 @@ pub fn show(ctx: Context(App)) -&gt; Response {
   let assert option.Some(user) = ctx.app.user
 
   // Pass the authenticated user to your view
-  response.loom(dashboard.render(user: user), 200)
+  dashboard.render(user: user)
+  |> response.string_tree(200)
 }</x-code>
                 </div>
                 <!-- prettier-ignore -->
@@ -625,7 +633,10 @@ pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
   }
 
   case user_result {
-    Ok(user) -&gt; response.loom(user_show.render(user: user), 200)
+    Ok(user) -&gt; {
+     user_show.render(user: user)
+     |> response.string_tree(200)
+    }
     Error(db.NotFound) -&gt; response.not_found()
     Error(_) -&gt; response.internal_server_error()
   }
