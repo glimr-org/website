@@ -20,7 +20,7 @@ pub fn render(
 ) -> StringTree {
   string_tree.concat([
     string_tree.from_strings([
-      "\n<!doctype html>\n<html>\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/images/favicon.svg\" />\n\n    <link\n      href=\"https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:ital,wght@0,300;1,300&display=swap\"\n      rel=\"stylesheet\"\n    />\n\n    ",
+      "\n<!doctype html>\n<html>\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/static/images/favicon.svg\" />\n\n    <link\n      href=\"https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;1,300&display=swap\"\n      rel=\"stylesheet\"\n    />\n\n    ",
       vite.tags("src/resources/ts/app.ts"),
       "\n\n    <!-- header scripts and meta tags -->\n    ",
     ]),

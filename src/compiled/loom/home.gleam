@@ -84,7 +84,7 @@ pub fn render() -> StringTree {
         components_container.render(
           slot: string_tree.concat([
             string_tree.from_strings([
-              "\n      <!-- Left content -->\n      <div class=\"flex-1 sm:max-w-sm\">\n        <span\n          class=\"inline-block text-[13px] font-semibold text-[#FF43A1] mb-5 bg-[#FFEEF7] rounded-[9px] px-2.5 pb-px\"\n        >\n          v1.0.0\n        </span>\n\n        <h1 class=\"text-[34px] leading-[1.07] font-semibold mb-8\">\n          The batteries-included web framework for Gleam\n        </h1>\n\n        <p class=\"text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm\">\n          Gleam's type safety and functional core, plus Glimr's opinionated\n          design mean fewer bugs, confident refactoring, and AI that actually\n          writes correct code.\n        </p>\n\n        <div\n          class=\"flex flex-col sm:flex-row gap-3 items-start sm:items-center\"\n        >\n          ",
+              "\n      <!-- Left content -->\n      <div class=\"flex-1 sm:max-w-sm\">\n        <span\n          class=\"inline-block text-[13px] font-semibold text-[#FF43A1] mb-5 bg-[#FFEEF7] rounded-[9px] px-2.5 pb-px\"\n        >\n          v1.0.0\n        </span>\n\n        <h1 class=\"text-[34px] leading-[1.07] font-semibold mb-8\">\n          The batteries-included web framework for Gleam\n        </h1>\n\n        <p class=\"text-[17px] md:text-[16px] leading-snug mb-10 max-w-sm\">\n          Gleam's type safety and functional core, plus Glimr's opinionated\n          design mean fewer bugs, confident refactoring, and AI that actually\n          writes correct code.\n        </p>\n\n        <div class=\"flex gap-3 items-start sm:items-center\">\n          ",
             ]),
             components_button.render(
               href: "https://github.com/glimr-org/glimr?tab=readme-ov-file#glimr-",
@@ -539,7 +539,7 @@ pub fn render() -> StringTree {
               "\n          </div>\n        </div>\n      </div>\n    ",
             ]),
           ]),
-          attributes: [runtime.Attribute("class", "pt-10 pb-17.5")],
+          attributes: [runtime.Attribute("class", "pt-5 md:pt-10 pb-17.5")],
         ),
         string_tree.from_strings([
           "\n  </section>\n\n  <!-- LLM Section -->\n  <section>\n    ",
