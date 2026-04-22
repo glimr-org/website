@@ -312,7 +312,7 @@ pub fn render() -> StringTree {
               filename: "user_controller.gleam",
               borderless: False,
               slot: string_tree.from_strings([
-                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  // Fetch from cache, or query DB on miss\n  let user_result = {\n    use &lt;- cache.try_remember_json(\n      ctx.app.cache,\n      \"user:\" &lt;&gt; int.to_string(user_id),\n      3600,\n      user.decoder(),\n      user.encoder(),\n    )\n    user.find(ctx.app.db, user_id)\n  }\n\n  case user_result {\n    Ok(user) -&gt; {\n     user_show.render(user: user)\n     |> response.string_tree(200)\n    }\n    Error(db.NotFound) -&gt; response.not_found()\n    Error(_) -&gt; response.internal_server_error()\n  }\n}",
+                "/// @get \"/users/:user_id\"\npub fn show(ctx: Context(App), user_id: Int) -&gt; Response {\n  // Fetch from cache, or query DB on miss\n  let user_result = {\n    use &lt;- cache.remember_json(\n      ctx.app.cache,\n      \"user:\" &lt;&gt; int.to_string(user_id),\n      3600,\n      user.decoder(),\n      user.encoder(),\n    )\n    user.find(ctx.app.db, user_id)\n  }\n\n  case user_result {\n    Ok(user) -&gt; {\n     user_show.render(user: user)\n     |> response.string_tree(200)\n    }\n    Error(db.NotFound) -&gt; response.not_found()\n    Error(_) -&gt; response.internal_server_error()\n  }\n}",
               ]),
               attributes: [
                 runtime.Attribute("language", "gleam"),

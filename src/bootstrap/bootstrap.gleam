@@ -14,7 +14,7 @@ import glimr/http/context
 import glimr/http/http.{type Request, type Response}
 import glimr/http/kernel as glimr_kernel
 import glimr/routing/router
-import glimr/session/session
+import glimr/session
 import glimr_sqlite/sqlite
 
 /// Initializes the HTTP application and returns the request

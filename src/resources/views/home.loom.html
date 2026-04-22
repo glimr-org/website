@@ -620,7 +620,7 @@ props(user: User)
 pub fn show(ctx: Context(App), user_id: Int) -&gt; Response {
   // Fetch from cache, or query DB on miss
   let user_result = {
-    use &lt;- cache.try_remember_json(
+    use &lt;- cache.remember_json(
       ctx.app.cache,
       "user:" &lt;&gt; int.to_string(user_id),
       3600,

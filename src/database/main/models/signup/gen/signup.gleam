@@ -5,8 +5,7 @@
 import gleam/dynamic/decode
 import gleam/json
 import glimr/db/db
-import glimr/http/http.{type Response}
-import glimr/response/response
+import glimr/http/response.{type Response}
 
 pub type Signup {
   Signup(id: Int, email: String, created_at: Int, updated_at: Int)
